@@ -50,26 +50,30 @@ define([
 		this.$roomTitle.text('ROOM TITLE');
 	};
 
+	Ui.prototype._formatTrack = function (track) {
+		return '<span title="' + track.url + '">' + track.artist + ' - ' + track.title + "</span>";
+	}
+
 	Ui.prototype._renderTrackHistory = function () {
 		console.log('UI | render track history');
 		var self = this;
 		var trackHistory = this.playlist.getTrackHistory();
 		self.$trackHistory.empty();
 		_.eachRight(trackHistory, function (track) {
-			self.$trackHistory.append('<li>' + track + '</li>');
+			self.$trackHistory.append('<li>' + self._formatTrack(track) + '</li>');
 		});
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
 		console.log('UI | render current track');
-		var currentTrack = this.playlist.getCurrentTrack();
-		var trackTitle = 'no songs to play';
+		var track = this.playlist.getCurrentTrack();
+		var trackTitle = 'no tracks to play';
 		var trackPosition = 0;
-		if (currentTrack) {
-			trackTitle = currentTrack.url;
-			trackPosition = (currentTrack.position * 100) + '%';
+		if (track) {
+			trackTitle = this._formatTrack(track);
+			trackPosition = (track.position * 100) + '%';
 		}
-		this.$currentTrackTitle.text(trackTitle);
+		this.$currentTrackTitle.html(trackTitle);
 		this.$currentTrackPosition.text(trackPosition);
 	};
 
@@ -79,7 +83,7 @@ define([
 		var trackQueue = this.playlist.getTrackQueue();
 		self.$trackQueue.empty();
 		_.forEach(trackQueue, function (track) {
-			self.$trackQueue.append('<li>' + track + '</li>');
+			self.$trackQueue.append('<li>' + self._formatTrack(track) + '</li>');
 		});
 	};
 

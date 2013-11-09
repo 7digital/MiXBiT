@@ -13,6 +13,7 @@ define([
 			console.log('Room | init');
 			var self = this;
 			this.ui = new Ui();
+			this.playlist = new Playlist();
 			this.player = new Player(
 				function stateChanged() {
 					console.log('Main | player state changed');
@@ -26,10 +27,10 @@ define([
 				},
 				function onRoomState(roomState) {
 					console.log('Main | io room state');
-					var playlist = new Playlist();
-					self.player.setPlaylist(playlist);
+					self.playlist.loadFromRoomState(roomState);
+					self.player.setPlaylist(self.playlist);
 					self.player.play();
-					self.ui.setPlaylist(playlist);
+					self.ui.setPlaylist(self.playlist);
 					self.ui.update();
 				}
 			);

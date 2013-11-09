@@ -22,7 +22,7 @@ define([
 		this._resetAudio();
 		this._currentTrack = this._playlist.getCurrentTrack();
 		this.audioJsPlayer.load(this._currentTrack.url);
-		this._skipTo(this._currentTrack.position);
+		this._seekTo(this._currentTrack.position);
 	};
 
 	Player.prototype._resetAudio = function () {
@@ -39,20 +39,29 @@ define([
 				self._trackEnded();
 			},
 			loadError: function() {
-				console.error('PLAYER ERROR, playing again');
+				console.error('PLAYER ERROR, cannot load, playing again');
 				self.play();
 			}
 		})[0];
 	};
 
-	Player.prototype._skipTo = function (position) {
+	Player.prototype._seekTo = function (position) {
+		position = position || 0;
 		console.log('Player | skip to %s%', position * 100);
 		var self = this;
-		var lastPartialSkip = new Date();
+		var seekStarted = new Date();
+		var lastPartialSeek = new Date();
+		var lastPartialSeekPosition = new Date();
 		if (this.playIntervalId) {
 			clearInterval(this.playIntervalId);
 		}
 		this.playIntervalId = setInterval(function () {
+			var now = new Date();
+			if ((now - seekStarted) > 60000) {
+				console.log('PLAYER ERROR, skip timeout elapsed, playing again');
+				clearInterval(this.playIntervalId);
+				self.play();
+			}
 			if (!self.audioJsPlayer.loadedPercent) {
 				return;
 			}
@@ -63,13 +72,12 @@ define([
 				self.audioJsPlayer.skipTo(position);
 				self.stateChangedCallback();
 			} else {
-				var now = new Date();
-				var elapsed = now - lastPartialSkip;
+				var elapsed = now - lastPartialSeek;
 				if (elapsed > 300) {
 					var partialPosition = self.audioJsPlayer.loadedPercent * 0.75;
 					console.log('Player | partial skip to %s%', partialPosition * 100);
 					self.audioJsPlayer.skipTo(partialPosition);
-					lastPartialSkip = now;
+					lastPartialSeek = now;
 				}
 			}
 		}, 100);
