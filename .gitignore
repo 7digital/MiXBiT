@@ -16,3 +16,4 @@ docs
 /.sass-cache/
 /.idea/
 /.tmp/
+dump.rdb
