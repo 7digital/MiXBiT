@@ -1,0 +1,7 @@
+/node_modules/
+Gruntfile.js
+README.md
+node-inspector.js
+bower.json
+/client/
+/.tmp/

@@ -1,1 +1,16 @@
-node_modules
+/node_modules/
+/dist/
+.eprj
+.monitor
+*.css
+*.gz
+*.tgz
+*.swp
+/build/
+tags
+npm-debug.log
+/lib/compiled/
+docs
+.tern-port
+/client/bower_components/
+/.sass-cache/
