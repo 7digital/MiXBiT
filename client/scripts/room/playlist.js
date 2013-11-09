@@ -12,6 +12,9 @@ define([
 		this._trackHistory = _.map((roomState.history || []).reverse(), this._convert, this);
 		this._currentTrack = this._convert(roomState.current);
 		this._trackQueue = _.map(roomState.queue || [], this._convert, this);
+		if (!this._currentTrack && this._trackQueue.length) {
+			this.next();
+		}
 		if (this._currentTrack) {
 			this._currentTrack.position = 0.9;
 		}
@@ -23,7 +26,7 @@ define([
 		}
 		return {
 			artist: externalTrack.artistName || 'NO ARTIST',
-			title: externalTrack.title || 'NO TITLE',
+			title: externalTrack.trackName || 'NO TITLE',
 			album: externalTrack.releaseName || 'NO ALBUM',
 			url: externalTrack.url || 'NO URL'
 		};
