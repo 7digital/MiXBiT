@@ -1,5 +1,5 @@
-var rooms = require('../lib/rooms');
+var robot = require('../lib/robot-dj');
 
-rooms.get(123, function (err, tracks) {
-	console.log(err, tracks);
+robot.getTracks('techno', function (err, tracks) {
+	console.log(err || tracks);
 });

@@ -5,6 +5,7 @@ var isProduction, port,
 	express = require('express'),
 	rollbar = require('rollbar'),
 	path = require('path'),
+	config = require('./lib/config'),
 	pkg = require('./package'),
 	sock = require('./lib/sock'),
 	app = express(),
@@ -19,7 +20,7 @@ var isProduction, port,
 if (process.env.NODE_ENV === 'production' || process.argv[2] === 'production') {
 	console.log('Running in production');
 	app.set('env', 'production');
-	isProduction = (process.env.NODE_ENV === 'production');
+	isProduction = true;
 	port = (isProduction ? 80 : 8000);
 } else {
 	app.set('env', 'development');
@@ -50,7 +51,7 @@ app.set('view engine', 'handlebars');
 app.use(express.compress());
 app.use(express.bodyParser());
 app.use(app.router);
-app.use(rollbar.errorHandler(process.env.ROLLBAR_ACCESS_TOKEN));
+app.use(rollbar.errorHandler(config.rollbarToken));
 
 // routes
 app.get('/', routes.index);
