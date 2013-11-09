@@ -8,6 +8,7 @@ var isProduction, port,
 	pkg = require('./package'),
 	sock = require('./lib/sock'),
 	app = express(),
+	rooms = require('./lib/rooms'),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server),
 	hbjs = require('express3-handlebars'),
@@ -58,16 +59,19 @@ app.post('/room/create', routes.createRoom);
 
 // startup
 sock(io);
-server.listen(port, function(err) {
-	if (err) { console.error(err); process.exit(-1); }
 
-	// if run as root, downgrade to the owner of this file
-	if (process.getuid() === 0) {
-		require('fs').stat(__filename, function(err, stats) {
-			if (err) { return console.error(err); }
-			process.setuid(stats.uid);
-		});
-	}
+rooms.init(function () {
+	server.listen(port, function(err) {
+		if (err) { console.error(err); process.exit(-1); }
 
-	console.log("%s server listening on port %s", pkg.name, port);
+		// if run as root, downgrade to the owner of this file
+		if (process.getuid() === 0) {
+			require('fs').stat(__filename, function(err, stats) {
+				if (err) { return console.error(err); }
+				process.setuid(stats.uid);
+			});
+		}
+
+		console.log("%s server listening on port %s", pkg.name, port);
+	});
 });
