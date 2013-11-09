@@ -1,10 +1,9 @@
 define([
 	'lodash',
-	'jquery',
 	'socketio',
 	'audiojs',
-	'room-ui'
-], function (_, $, io, audiojs, RoomUi) {
+	'room/ui'
+], function (_, io, audiojs, RoomUi) {
 	'use strict';
 
 	var socket = io.connect();
