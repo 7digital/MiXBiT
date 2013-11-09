@@ -46,7 +46,8 @@ define([
 			this.room = room;
 			this.$room = $('.room');
 			this.$trackHistory = this.$room.find('.track-history');
-			this.$currentTrack = this.$room.find('.current-track');
+			this.$currentTrackTitle = this.$room.find('.current-track-title');
+			this.$currentTrackPosition = this.$room.find('.current-track-position');
 			this.$trackQueue = this.$room.find('.track-queue');
 		}
 
@@ -58,7 +59,8 @@ define([
 			_.forEach(trackHistory, function (track) {
 				self.$trackHistory.append('<li>' + track + '</li>');
 			});
-			this.$currentTrack.text(currentTrack.title);
+			this.$currentTrackTitle.text(currentTrack.title);
+			this.$currentTrackPosition.text(currentTrack.position + 's');
 			_.forEach(trackQueue, function (track) {
 				self.$trackQueue.append('<li>' + track + '</li>');
 			});
