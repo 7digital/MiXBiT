@@ -55,7 +55,7 @@ define([
 		var self = this;
 		var trackHistory = this.playlist.getTrackHistory();
 		self.$trackHistory.empty();
-		_.forEach(trackHistory, function (track) {
+		_.eachRight(trackHistory, function (track) {
 			self.$trackHistory.append('<li>' + track + '</li>');
 		});
 	};

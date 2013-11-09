@@ -37,11 +37,19 @@ define([
 
 	Playlist.prototype.next = function () {
 		console.log('Playlist | next');
+		var currentTrackUrl = this._currentTrack.url;
+		this._trackHistory.push(currentTrackUrl);
+		if (!this._trackQueue.length){
+			this._currentTrack = null;
+			return false;
+		}
+		var nextTrackUrl = this._trackQueue[0];
 		this._currentTrack = {
-			url: this._trackQueue[0],
-			position: 0
+			url: nextTrackUrl,
+			position: 0.9
 		};
 		this._trackQueue.splice(0, 1);
+		return true;
 	};
 
 	Playlist.prototype.getTrackQueue = function () {
