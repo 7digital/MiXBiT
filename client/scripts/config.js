@@ -9,11 +9,11 @@ require.config({
 	shim: {
 		handlebars: {
 			deps: [],
-			exports: 'Handlebars',
+			exports: 'Handlebars'
 		},
 		lodash: {
 			deps: [],
-			exports: '_',
+			exports: '_'
 		}
 	}
 });
