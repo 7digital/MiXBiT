@@ -12,7 +12,7 @@ define([
 		this.$room = $room;
 	}
 
-	Player.prototype.resetAudio = function () {
+	Player.prototype._resetAudio = function () {
 		console.log('Player | create audio');
 		var self = this;
 		if (this.playIntervalId) {
@@ -23,7 +23,7 @@ define([
 		this.$room.append('<audio preload class="player"></audio>');
 		this.audioJsPlayer = audiojs.createAll({
 			trackEnded: function () {
-				self.trackEnded();
+				self._trackEnded();
 			},
 			loadError: function() {
 				console.error('PLAYER ERROR, playing again');
@@ -34,13 +34,13 @@ define([
 
 	Player.prototype.play = function () {
 		console.log('Player | play');
-		this.resetAudio();
+		this._resetAudio();
 		this._currentTrack = this._playlist.getCurrentTrack();
 		this.audioJsPlayer.load(this._currentTrack.url);
-		this.skipTo(this._currentTrack.position);
+		this._skipTo(this._currentTrack.position);
 	};
 
-	Player.prototype.skipTo = function (position) {
+	Player.prototype._skipTo = function (position) {
 		console.log('Player | skip to %s%', position * 100);
 		var self = this;
 		var lastPartialSkip = new Date();
@@ -70,7 +70,7 @@ define([
 		}, 100);
 	};
 
-	Player.prototype.trackEnded = function () {
+	Player.prototype._trackEnded = function () {
 		console.log('Player | track ended');
 		if (this._playlist.next()) {
 			this.play();
