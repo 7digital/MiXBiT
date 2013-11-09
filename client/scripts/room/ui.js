@@ -55,8 +55,11 @@ define([
 	};
 
 	Ui.prototype._formatTrack = function (track) {
+		if (!track) {
+			return null;
+		}
 		return '<span title="' + track.url + '">' + track.artist + ' - ' + track.title + "</span>";
-	}
+	};
 
 	Ui.prototype._renderTrackHistory = function () {
 		console.log('UI | render track history');

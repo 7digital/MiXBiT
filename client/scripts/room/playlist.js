@@ -34,7 +34,9 @@ define([
 
 	Playlist.prototype.next = function () {
 		console.log('Playlist | next');
-		this._trackHistory.unshift(this._currentTrack);
+		if (this._currentTrack) {
+			this._trackHistory.unshift(this._currentTrack);
+		}
 		if (!this._trackQueue.length){
 			this._currentTrack = null;
 			return false;
