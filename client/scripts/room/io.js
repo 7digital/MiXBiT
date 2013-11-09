@@ -22,7 +22,7 @@ define([
 		var self = this;
 		this.onConnectCallback();
 		var url = document.URL;
-		var roomId = url.substring(url.lastIndexOf('/'));
+		var roomId = url.substring(url.lastIndexOf('/') + 1);
 		console.log('Client session id %s', self.socket.sessionid);
 		console.log('Joining room %s', roomId);
 		this.socket.emit('room', roomId);
