@@ -20,37 +20,37 @@ define([
 	Ui.prototype.setPlaylist = function (playlist) {
 		console.log('Ui | set playlist');
 		this.playlist = playlist;
-	}
+	};
 
 	Ui.prototype.connected = function () {
 		console.log('Ui | connected');
 		this.$roomLoadingStatus.text('Syncing with server...');
 	};
 
-	Ui.prototype.hideLoading = function () {
+	Ui.prototype.update = function () {
+		console.log('UI | update');
+		if (this.isLoading) {
+			this._hideLoading();
+		}
+		this._renderRoomInfo();
+		this._renderTrackHistory();
+		this._renderCurrentTrack();
+		this._renderTrackQueue();
+	};
+
+	Ui.prototype._hideLoading = function () {
 		console.log('Ui | hide loading');
 		this.$room.removeClass('loading');
 		this.$roomLoading.addClass('hidden');
 		this.isLoading = false;
 	};
 
-	Ui.prototype.update = function () {
-		console.log('UI | update');
-		if (this.isLoading) {
-			this.hideLoading();
-		}
-		this.renderRoomInfo();
-		this.renderTrackHistory();
-		this.renderCurrentTrack();
-		this.renderTrackQueue();
-	};
-
-	Ui.prototype.renderRoomInfo = function () {
+	Ui.prototype._renderRoomInfo = function () {
 		console.log('UI | render room info');
 		this.$roomTitle.text('ROOM TITLE');
 	};
 
-	Ui.prototype.renderTrackHistory = function () {
+	Ui.prototype._renderTrackHistory = function () {
 		console.log('UI | render track history');
 		var self = this;
 		var trackHistory = this.playlist.getTrackHistory();
@@ -60,7 +60,7 @@ define([
 		});
 	};
 
-	Ui.prototype.renderCurrentTrack = function () {
+	Ui.prototype._renderCurrentTrack = function () {
 		console.log('UI | render current track');
 		var currentTrack = this.playlist.getCurrentTrack();
 		var trackTitle = 'no songs to play';
@@ -73,7 +73,7 @@ define([
 		this.$currentTrackPosition.text(trackPosition);
 	};
 
-	Ui.prototype.renderTrackQueue = function () {
+	Ui.prototype._renderTrackQueue = function () {
 		console.log('UI | render track queue');
 		var self = this;
 		var trackQueue = this.playlist.getTrackQueue();
