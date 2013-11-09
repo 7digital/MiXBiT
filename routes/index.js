@@ -7,3 +7,10 @@ exports.index = function(req, res){
 
   res.render('home', { title: '7digital Knockout' });
 };
+
+/*
+ * GET /room/:id.
+ */
+exports.room = function(req, res){
+	res.render('room', { title: 'Music Room', id: req.params.id });
+};
