@@ -29,7 +29,7 @@ module.exports = function configureGrunt(grunt) {
 				livereload: true
 			},
 			compass: {
-				files: ['client/styles/**/*.{scss,sass}'],
+				files: ['client/sass/**/*.{scss,sass}'],
 				tasks: ['compass:server'],
 				options: {
 					livereload: false,
