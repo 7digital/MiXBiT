@@ -3,15 +3,20 @@
 </section>
 
 <section class="room-selection">
+    <h2 class="header">ROOM SELECTION</h2>
     <ul>
+    {{#each rooms}}
         <li class="room">
-            <a href="/room/123" title="">Demo 1</a>
+            <a class="cube {{toLowerCase genre}}" href="/room/{{id}}" title="{{name}}">{{name}}
+                <span class="tooltip">
+                    <img class="tooltip-thumb" src="http://placehold.it/50x50" alt="">
+                    <strong class="tooltip-header">Turbo Fun!!!</strong>
+                    <em class="tooltip-album-title">The Smiths - Cemetry Gates</em>
+                    <span class="tooltip-listeners">Listeners: <strong>10</strong></span>
+                </span>
+            </a>
         </li>
-{{#each rooms}}
-        <li class="room">
-            <a href="/room/{{id}}" title="{{name}}">{{name}}</a>
-        </li>
-{{/each}}
+    {{/each}}
     </ul>
 </section>
 
@@ -20,7 +25,7 @@
 
         <div class="data-field">
             <label for="name">Name</label>
-            <input tabindex="1" type="text" id="name" name="name"></input>
+            <input tabindex="1" type="text" id="name" name="name"></input>™
         </div>
 
         <div class="data-field">

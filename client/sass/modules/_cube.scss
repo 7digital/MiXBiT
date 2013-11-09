@@ -1,0 +1,50 @@
+.cube {
+    display: block;
+    width: 54px;
+    height: 62px;
+    text-indent: -9999em;
+    background: transparent url("/images/cubes.png") no-repeat 0 0;
+    // @include transition(height 0.3s ease-in);
+
+    &:hover {
+        width: 80px;
+        height: 74px;
+
+        .tooltip {
+            visibility: visible;
+        }
+    }
+
+    &.techno {
+        background-position: -109px 17px;
+
+        &:hover {
+            background-position: -109px -86px;
+        }
+    }
+
+    &.rock {
+        background-position: -421px 17px;
+
+        &:hover {
+            background-position: -421px -86px;
+        }
+    }
+
+    &.hip-hop {
+        background-position: -317px 17px;
+
+        &:hover {
+            background-position: -317px -86px;
+        }
+    }
+
+    &.disco {
+        background-position: -213px 17px;
+
+        &:hover {
+            background-position: -213px -86px;
+        }
+    }
+}
+

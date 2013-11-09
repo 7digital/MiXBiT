@@ -1,0 +1,63 @@
+.tooltip {
+    position: relative;
+    visibility: hidden;
+    display: block;
+    margin: -110px 0 0;
+    background-color: #000;
+    top: 0;
+    left: 0;
+    width: 210px;
+    padding: 6px;
+    min-height: 50px;
+    color: #fff;
+    text-indent: 0;
+    text-align: left;
+    font-weight: 200;
+}
+
+.tooltip-thumb {
+    position: relative;
+    float: left;
+    padding-right: 6px;
+}
+
+.tooltip-header {
+    color: #fff;
+    display: block;
+    font-size: 12px;
+    margin: 4px 0;
+    font-weight: 400;
+}
+
+.tooltip-album-title {
+    display: block;
+    font-size: 10px;
+    margin-bottom: 4px;
+}
+
+.tooltip-listeners {
+    display: block;
+    font-size: 10px;
+
+    strong {
+        font-weight: 400;
+        font-size: 12px;
+    }
+}
+
+.tooltip:after {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.tooltip:after {
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 13px;
+    left: 18px;
+}

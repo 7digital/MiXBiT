@@ -17,6 +17,16 @@ var isProduction, port,
 	port = 3000,
 	url  = 'http://localhost:' + port + '/';
 
+var hbs = hbjs.create({
+		defaultLayout: 'main',
+		helpers: {
+			toLowerCase: function (string) {
+				'use strict';
+				return string.toLowerCase();
+			}
+		}
+	});
+
 if (process.env.NODE_ENV === 'production' || process.argv[2] === 'production') {
 	console.log('Running in production');
 	app.set('env', 'production');
@@ -44,9 +54,7 @@ if (app.get('env') === 'development') {
 }
 
 // configuration
-app.engine('handlebars', hbjs({
-	defaultLayout: 'main'
-}));
+app.engine('handlebars',  hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(express.compress());
 app.use(express.bodyParser());
