@@ -6,12 +6,18 @@ define([
 ], function (_, $, io, audiojs) {
 	'use strict';
 
-	//var socket = io.connect('http://localhost:3000/');
-	/*
-	socket.on('queue', function (data) {
-		console.log(data);
+	var socket = io.connect();
+
+	socket.on('connect', function () {
+		var url = document.URL;
+		var room = url.substring(url.lastIndexOf('/'));
+
+		console.log('Joining room %s', room);
+		socket.emit('room', room);
+		socket.on('queue', function (queue) {
+			console.log(queue);
+		});
 	});
-	*/
 
 	var Room = (function () {
 
