@@ -9,8 +9,8 @@ define([
 
 	Playlist.prototype.loadFromRoomState = function (roomState) {
 		console.log('Playlist | set from room state');
-		this._trackHistory = _.map(roomState.history, this._convert, this);
-		this._currentTrack = this._convert(roomState.current);;
+		this._trackHistory = _.map(roomState.history.reverse(), this._convert, this);
+		this._currentTrack = this._convert(roomState.current);
 		this._trackQueue = _.map(roomState.queue, this._convert, this);
 		this._currentTrack.position = 0.9;
 	};
@@ -26,7 +26,7 @@ define([
 
 	Playlist.prototype.next = function () {
 		console.log('Playlist | next');
-		this._trackHistory.push(this._currentTrack);
+		this._trackHistory.unshift(this._currentTrack);
 		if (!this._trackQueue.length){
 			this._currentTrack = null;
 			return false;

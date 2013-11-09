@@ -36,7 +36,9 @@ define([
 		}
 		this._renderRoomInfo();
 		this._renderTrackHistory();
+		this._renderPreviousTrack();
 		this._renderCurrentTrack();
+		this._renderNextTrack();
 		this._renderTrackQueue();
 	};
 
@@ -61,15 +63,25 @@ define([
 		var self = this;
 		var trackHistory = this.playlist.getTrackHistory();
 		self.$trackHistory.empty();
-		_.eachRight(trackHistory, function (track) {
+		_.each(trackHistory.slice(1), function (track) {
 			self.$trackHistory.append('<li>' + self._formatTrack(track) + '</li>');
 		});
+	};
+
+	Ui.prototype._renderPreviousTrack = function () {
+		console.log('UI | render previous track');
+		var track = this.playlist._trackHistory[0];
+		var trackTitle = 'no previous track';
+		if (track) {
+			trackTitle = this._formatTrack(track);
+		}
+		this.$previousTrackTitle.html(trackTitle);
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
 		console.log('UI | render current track');
 		var track = this.playlist.getCurrentTrack();
-		var trackTitle = 'no tracks to play';
+		var trackTitle = 'no track to play';
 		var trackPosition = 0;
 		if (track) {
 			trackTitle = this._formatTrack(track);
@@ -79,12 +91,22 @@ define([
 		this.$currentTrackPosition.text(trackPosition);
 	};
 
+	Ui.prototype._renderNextTrack = function () {
+		console.log('UI | render next track');
+		var track = this.playlist._trackQueue[0];
+		var trackTitle = 'no next track';
+		if (track) {
+			trackTitle = this._formatTrack(track);
+		}
+		this.$nextTrackTitle.html(trackTitle);
+	};
+
 	Ui.prototype._renderTrackQueue = function () {
 		console.log('UI | render track queue');
 		var self = this;
 		var trackQueue = this.playlist.getTrackQueue();
 		self.$trackQueue.empty();
-		_.forEach(trackQueue, function (track) {
+		_.forEach(trackQueue.slice(1), function (track) {
 			self.$trackQueue.append('<li>' + self._formatTrack(track) + '</li>');
 		});
 	};
