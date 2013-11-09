@@ -7,9 +7,9 @@ define([
 	function Player(stateChangedCallback, $room) {
 		console.log('Player | init');
 		this.stateChangedCallback = stateChangedCallback;
+		this.$room = $room;
 		this._playlist = null;
 		this._currentTrack = null;
-		this.$room = $room;
 	}
 
 	Player.prototype.setPlaylist = function (playlist) {
@@ -21,6 +21,9 @@ define([
 		console.log('Player | play');
 		this._resetAudio();
 		this._currentTrack = this._playlist.getCurrentTrack();
+		if (!this._currentTrack) {
+			return;
+		}
 		this.audioJsPlayer.load(this._currentTrack.url);
 		this._seekTo(this._currentTrack.position);
 	};

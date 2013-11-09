@@ -9,18 +9,23 @@ define([
 
 	Playlist.prototype.loadFromRoomState = function (roomState) {
 		console.log('Playlist | set from room state');
-		this._trackHistory = _.map(roomState.history.reverse(), this._convert, this);
+		this._trackHistory = _.map((roomState.history || []).reverse(), this._convert, this);
 		this._currentTrack = this._convert(roomState.current);
-		this._trackQueue = _.map(roomState.queue, this._convert, this);
-		this._currentTrack.position = 0.9;
+		this._trackQueue = _.map(roomState.queue || [], this._convert, this);
+		if (this._currentTrack) {
+			this._currentTrack.position = 0.9;
+		}
 	};
 
 	Playlist.prototype._convert = function (externalTrack) {
+		if (!externalTrack) {
+			return null;
+		}
 		return {
-			artist: externalTrack.artistName,
-			title: 'NO TITLE :(',
-			album: externalTrack.releaseName,
-			url: externalTrack.url
+			artist: externalTrack.artistName || 'NO ARTIST',
+			title: externalTrack.title || 'NO TITLE',
+			album: externalTrack.releaseName || 'NO ALBUM',
+			url: externalTrack.url || 'NO URL'
 		};
 	};
 
