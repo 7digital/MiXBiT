@@ -1,0 +1,15 @@
+.room-selection {
+    & > * {
+        width: 90%;
+        padding: 0;
+        margin: 50px auto 0;
+    }
+
+    .room {
+        width: 20%;
+        float: left;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+}
