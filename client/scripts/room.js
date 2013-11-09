@@ -2,26 +2,34 @@ define([
 	'lodash',
 	'jquery',
 	'socketio',
-	'audiojs'
-], function (_, $, io, audiojs) {
+	'audiojs',
+	'room-ui'
+], function (_, $, io, audiojs, RoomUi) {
 	'use strict';
 
 	var socket = io.connect();
 
 	socket.on('connect', function () {
 		var url = document.URL;
-		var room = url.substring(url.lastIndexOf('/'));
+		var roomId = url.substring(url.lastIndexOf('/'));
 
-		console.log('Joining room %s', room);
-		socket.emit('room', room);
+		console.log('Client session id %s', this.socket.sessionid);
+		console.log('Joining room %s', roomId);
+		socket.emit('room', roomId);
+
 		socket.on('queue', function (queue) {
 			console.log(queue);
+
+			room.play(room.getCurrentTrack());
+			roomUi.update();
+
 		});
 	});
 
 	var Room = (function () {
 
 		function Room() {
+			console.log('Room | init');
 			var self = this;
 			this.player = audiojs.createAll({
 				trackEnded: function () {
@@ -31,6 +39,7 @@ define([
 		}
 
 		Room.prototype.play = function (track) {
+			console.log('Room | play');
 			var self = this;
 			this.player.load(track.url);
 			if (this.playIntervalId) {
@@ -46,6 +55,7 @@ define([
 		};
 
 		Room.prototype.getTrackHistory = function () {
+			console.log('Room | track history');
 			return [
 				'http://s3.amazonaws.com/audiojs/01-dead-wrong-intro.mp3',
 				'http://s3.amazonaws.com/audiojs/02-juicy-r.mp3',
@@ -54,6 +64,7 @@ define([
 		};
 
 		Room.prototype.getCurrentTrack = function () {
+			console.log('Room | current track');
 			return {
 				url: 'http://s3.amazonaws.com/audiojs/04-islands-is-the-limit.mp3',
 				position: 0.3
@@ -61,6 +72,7 @@ define([
 		};
 
 		Room.prototype.getTrackQueue = function () {
+			console.log('Room | track queue');
 			return [
 				'http://s3.amazonaws.com/audiojs/05-one-more-chance-for-a-heart-to-skip-a-beat.mp3',
 				'http://s3.amazonaws.com/audiojs/06-suicidal-fantasy.mp3',
@@ -73,6 +85,7 @@ define([
 		};
 
 		Room.prototype.getNextTrack = function () {
+			console.log('Room | next track');
 			return this.getCurrentTrack();
 		};
 
@@ -80,40 +93,7 @@ define([
 
 	})();
 
-	var RoomUi = (function() {
-
-		function RoomUi(room) {
-			this.room = room;
-			this.$room = $('.room');
-			this.$trackHistory = this.$room.find('.track-history');
-			this.$currentTrackTitle = this.$room.find('.current-track-title');
-			this.$currentTrackPosition = this.$room.find('.current-track-position');
-			this.$trackQueue = this.$room.find('.track-queue');
-		}
-
-		RoomUi.prototype.update = function () {
-			var trackHistory = room.getTrackHistory();
-			var currentTrack = room.getCurrentTrack();
-			var trackQueue = room.getTrackQueue();
-			var self = this;
-			_.forEach(trackHistory, function (track) {
-				self.$trackHistory.append('<li>' + track + '</li>');
-			});
-			this.$currentTrackTitle.text(currentTrack.url);
-			this.$currentTrackPosition.text(currentTrack.position + 's');
-			_.forEach(trackQueue, function (track) {
-				self.$trackQueue.append('<li>' + track + '</li>');
-			});
-		};
-
-		return RoomUi;
-
-	})();
-
 	var room = new Room();
 	var roomUi = new RoomUi(room);
 
-	room.play(room.getCurrentTrack());
-	roomUi.update();
-	
 });
