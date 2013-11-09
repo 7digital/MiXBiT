@@ -1,9 +1,17 @@
 <section class="room">
 	<h1>Music room</h1>
-	<p>Welcome to {{ id }}</p>
-
-	<p class="current-track"></p>
-	<ul class="track-queue"></ul>
+	<p>Welcome to room 'id:{{ id }}'</p>
+	<p>
+		Just heard:
+		<ul class="track-history"></ul>
+	</p>
+	<p>
+		Now playing: <span class="current-track"></span>
+	</p>
+	<p>
+		Coming up:
+		<ul class="track-queue"></ul>
+	</p>
 </section>
 
 <script type="text/javascript">
