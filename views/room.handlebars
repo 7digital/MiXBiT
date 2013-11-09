@@ -1,5 +1,10 @@
-<h1>Music room</h1>
-<p>Welcome to {{ id }}</p>
+<section class="room">
+	<h1>Music room</h1>
+	<p>Welcome to {{ id }}</p>
+
+	<p class="current-track"></p>
+	<ul class="track-queue"></ul>
+</section>
 
 <script type="text/javascript">
 	require(['room'], function () {});
