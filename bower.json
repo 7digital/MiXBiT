@@ -20,6 +20,7 @@
     "lodash": "~2.2.1",
     "bootstrap-sass": "~3.0.1",
     "handlebars": "~1.1.2",
-    "requirejs": "~2.1.9"
+    "requirejs": "~2.1.9",
+    "audiojs": "*"
   }
 }

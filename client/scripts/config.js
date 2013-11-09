@@ -5,7 +5,8 @@ require.config({
 		jquery: '../bower_components/jquery/jquery',
 		handlebars: '../bower_components/handlebars/handlebars.runtime',
 		lodash: '../bower_components/lodash/dist/lodash.compat',
-		socketio: '../../socket.io/socket.io'
+		socketio: '../../socket.io/socket.io',
+		audiojs: '../bower_components/audiojs/audiojs/audio'
 	},
 	shim: {
 		'socketio': {
@@ -18,6 +19,10 @@ require.config({
 		lodash: {
 			deps: [],
 			exports: '_'
+		},
+		audiojs: {
+			deps: [],
+			exports: 'audiojs'
 		}
 	}
 });

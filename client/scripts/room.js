@@ -1,8 +1,9 @@
 define([
 	'lodash',
 	'jquery',
-	'socketio'
-], function (_, $, io) {
+	'socketio',
+	'audiojs'
+], function (_, $, io, audiojs) {
 	'use strict';
 
 	//var socket = io.connect('http://localhost:3000/');
@@ -15,32 +16,33 @@ define([
 	var Room = (function () {
 
 		function Room() {
-
+			this.audiojs = audiojs;
 		}
 
 		Room.prototype.getTrackHistory = function () {
 			return [
-				'Track 1',
-				'Track 2',
-				'Track 3'
+				'http://s3.amazonaws.com/audiojs/01-dead-wrong-intro.mp3',
+				'http://s3.amazonaws.com/audiojs/02-juicy-r.mp3',
+				'http://s3.amazonaws.com/audiojs/03-its-all-about-the-crystalizabeths.mp3'
 			];
 		};
 
 		Room.prototype.getCurrentTrack = function () {
 			return {
-				title: 'Current Track 4',
-				position: 2.5
+				title: 'http://s3.amazonaws.com/audiojs/04-islands-is-the-limit.mp3',
+				position: 30.5
 			};
 		};
 
 		Room.prototype.getTrackQueue = function () {
 			return [
-				'Track 5',
-				'Track 6',
-				'Track 7',
-				'Track 8',
-				'Track 9',
-				'Track 10',
+				'http://s3.amazonaws.com/audiojs/05-one-more-chance-for-a-heart-to-skip-a-beat.mp3',
+				'http://s3.amazonaws.com/audiojs/06-suicidal-fantasy.mp3',
+				'http://s3.amazonaws.com/audiojs/07-everyday-shelter.mp3',
+				'http://s3.amazonaws.com/audiojs/08-basic-hypnosis.mp3',
+				'http://s3.amazonaws.com/audiojs/09-infinite-victory.mp3',
+				'http://s3.amazonaws.com/audiojs/10-the-curious-incident-of-big-poppa-in-the-nighttime.mp3',
+				'http://s3.amazonaws.com/audiojs/11-mo-stars-mo-problems.mp3'
 			];
 		};
 
