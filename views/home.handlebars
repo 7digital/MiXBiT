@@ -1,5 +1,5 @@
 <section class="create-a-room">
-    <a class="btn large" href="/room/create" title="Create a room">Create</a>
+    <a class="btn large" href="#create-room" title="Create a room">Create</a>
 </section>
 
 <section class="room-selection">
@@ -15,17 +15,27 @@
     </ul>
 </section>
 
-<section class="room-creator">
+<section id="create-room" class="modal room-creator">
     <form action="/room/create" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name"></input>
-        <label for="genre">Genre:</label>
-        <select name="genre" id="genre">
-             <option value="Rock">Rock</option>
-             <option value="Techno">Techno</option>
-             <option value="Disco">Disco</option>
-             <option value="Hip-Hop">Hip-Hop</option>
-        </select>
-        <input type="submit" value="Create"></input>
+
+        <div class="data-field">
+            <label for="name">Name</label>
+            <input tabindex="1" type="text" id="name" name="name"></input>
+        </div>
+
+        <div class="data-field">
+            <label for="genre">Genre</label>
+            <select tabindex="2" name="genre" id="genre">
+                 <option value="Rock">Rock</option>
+                 <option value="Techno">Techno</option>
+                 <option value="Disco">Disco</option>
+                 <option value="Hip-Hop">Hip-Hop</option>
+            </select>
+        </div>
+
+        <input tabindex="3" class="btn" type="submit" value="Create"></input>
+
+        <a class="cancel" href="#" title="Cancel">Cancel</a>
+
     </form>
 </section>

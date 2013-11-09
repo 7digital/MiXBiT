@@ -1,0 +1,61 @@
+.modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    margin: 100px 10%;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #454545;
+    opacity: 0;
+    z-index: -1;
+     @include transition(opacity 0.2s linear);
+
+    & > * {
+        max-width: 400px;
+        width: 60%;
+        margin: 100px auto 0;
+    }
+
+    &.is-visible,
+    &:target {
+        opacity: 1;
+        z-index: 1;
+    }
+
+    input[type="submit"] {
+        color: #000;
+        border-radius: 4px;
+        margin: 0 10px;
+    }
+
+    .cancel {
+        text-decoration: none;
+        font-size: 12px;
+    }
+}
+
+.data-field {
+    overflow: auto;
+    margin: 10px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 4px;
+
+    label {
+        display: block;
+        padding: 6px 0;
+    }
+
+    input, select {
+        border: none;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    input {
+        padding: 4px 1px;
+    }
+}
