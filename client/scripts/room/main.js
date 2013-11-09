@@ -12,13 +12,13 @@ define([
 		function Room() {
 			console.log('Room | init');
 			var self = this;
+			this.ui = new Ui();
 			this.player = new Player(
 				function stateChanged() {
 					console.log('Main | player state changed');
 					self.ui.update();
-				}
+				}, this.ui.$room
 			);
-			this.ui = new Ui(this);
 			this.io = new Io(
 				function onConnect() {
 					console.log('Main | io connected');
