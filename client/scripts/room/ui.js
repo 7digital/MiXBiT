@@ -67,7 +67,7 @@ define([
 		var trackPosition = 0;
 		if (currentTrack) {
 			trackTitle = currentTrack.url;
-			trackPosition = currentTrack.position + '%';
+			trackPosition = (currentTrack.position * 100) + '%';
 		}
 		this.$currentTrackTitle.text(trackTitle);
 		this.$currentTrackPosition.text(trackPosition);

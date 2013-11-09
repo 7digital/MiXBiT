@@ -24,8 +24,8 @@ define([
 					console.log('Main | io connected');
 					self.ui.connected();
 				},
-				function onQueue(queue) {
-					console.log('Main | io queue');
+				function onRoomState(roomState) {
+					console.log('Main | io room state');
 					var playlist = new Playlist();
 					self.player.setPlaylist(playlist);
 					self.player.play();
