@@ -14,3 +14,18 @@
 {{/each}}
     </ul>
 </section>
+
+<section class="room-creator">
+    <form action="/room/create" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"></input>
+        <label for="genre">Genre:</label>
+        <select name="genre" id="genre">
+             <option value="Rock">Rock</option>
+             <option value="Techno">Techno</option>
+             <option value="Disco">Disco</option>
+             <option value="Hip-Hop">Hip-Hop</option>
+        </select>
+        <input type="submit" value="Create"></input>
+    </form>
+</section>
