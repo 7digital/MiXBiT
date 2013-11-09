@@ -4,7 +4,7 @@ define([
 ], function (_, $) {
 	'use strict';
 
-	function RoomUi(room) {
+	function Ui(room) {
 		console.log('Room UI | init');
 		this.room = room;
 		this.$room = $('.room');
@@ -14,11 +14,11 @@ define([
 		this.$trackQueue = this.$room.find('.track-queue');
 	}
 
-	RoomUi.prototype.update = function () {
+	Ui.prototype.update = function () {
 		console.log('Room UI | update');
-		var trackHistory = this.room.getTrackHistory();
-		var currentTrack = this.room.getCurrentTrack();
-		var trackQueue = this.room.getTrackQueue();
+		var trackHistory = this.room.playlist.trackHistory();
+		var currentTrack = this.room.playlist.currentTrack();
+		var trackQueue = this.room.playlist.trackQueue();
 		var self = this;
 		_.forEach(trackHistory, function (track) {
 			self.$trackHistory.append('<li>' + track + '</li>');
@@ -30,6 +30,6 @@ define([
 		});
 	};
 
-	return RoomUi;
+	return Ui;
 
 });
