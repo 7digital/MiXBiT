@@ -47,8 +47,7 @@ app.engine('handlebars', hbjs({
 }));
 app.set('view engine', 'handlebars');
 app.use(express.compress());
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.bodyParser());
 app.use(app.router);
 app.use(rollbar.errorHandler(process.env.ROLLBAR_ACCESS_TOKEN));
 
