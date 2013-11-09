@@ -63,8 +63,14 @@ define([
 	Ui.prototype.renderCurrentTrack = function () {
 		console.log('UI | render current track');
 		var currentTrack = this.playlist.getCurrentTrack();
-		this.$currentTrackTitle.text(currentTrack.url);
-		this.$currentTrackPosition.text(currentTrack.position + 's');
+		var trackTitle = 'no songs to play';
+		var trackPosition = 0;
+		if (currentTrack) {
+			trackTitle = currentTrack.url;
+			trackPosition = currentTrack.position + '%';
+		}
+		this.$currentTrackTitle.text(trackTitle);
+		this.$currentTrackPosition.text(trackPosition);
 	};
 
 	Ui.prototype.renderTrackQueue = function () {
