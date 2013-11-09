@@ -20,13 +20,13 @@
 	"debug"         : false,
 	"devel"         : true,
 
-	"strict"        : false,
+	"strict"        : true,
 	"globalstrict"  : false,
 
 	"asi"           : false,
 	"laxbreak"      : false,
 	"bitwise"       : true,
-	"boss"          : true,
+	"boss"          : false,
 	"curly"         : true,
 	"eqeqeq"        : true,
 	"eqnull"        : false,
