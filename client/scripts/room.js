@@ -22,8 +22,28 @@ define([
 	var Room = (function () {
 
 		function Room() {
-			this.audiojs = audiojs;
+			var self = this;
+			this.player = audiojs.createAll({
+				trackEnded: function () {
+					self.play(self.getNextTrack());
+				}
+			})[0];
 		}
+
+		Room.prototype.play = function (track) {
+			var self = this;
+			this.player.load(track.url);
+			if (this.playIntervalId) {
+				clearInterval(this.playIntervalId);
+			}
+			this.playIntervalId = setInterval(function () {
+				if (self.player.loadedPercent > track.position) {
+					clearInterval(self.playIntervalId);
+					self.player.skipTo(track.position);
+					self.player.play();
+				}
+			}, 100);
+		};
 
 		Room.prototype.getTrackHistory = function () {
 			return [
@@ -35,8 +55,8 @@ define([
 
 		Room.prototype.getCurrentTrack = function () {
 			return {
-				title: 'http://s3.amazonaws.com/audiojs/04-islands-is-the-limit.mp3',
-				position: 30.5
+				url: 'http://s3.amazonaws.com/audiojs/04-islands-is-the-limit.mp3',
+				position: 0.3
 			};
 		};
 
@@ -50,6 +70,10 @@ define([
 				'http://s3.amazonaws.com/audiojs/10-the-curious-incident-of-big-poppa-in-the-nighttime.mp3',
 				'http://s3.amazonaws.com/audiojs/11-mo-stars-mo-problems.mp3'
 			];
+		};
+
+		Room.prototype.getNextTrack = function () {
+			return this.getCurrentTrack();
 		};
 
 		return Room;
@@ -75,7 +99,7 @@ define([
 			_.forEach(trackHistory, function (track) {
 				self.$trackHistory.append('<li>' + track + '</li>');
 			});
-			this.$currentTrackTitle.text(currentTrack.title);
+			this.$currentTrackTitle.text(currentTrack.url);
 			this.$currentTrackPosition.text(currentTrack.position + 's');
 			_.forEach(trackQueue, function (track) {
 				self.$trackQueue.append('<li>' + track + '</li>');
@@ -89,5 +113,7 @@ define([
 	var room = new Room();
 	var roomUi = new RoomUi(room);
 
+	room.play(room.getCurrentTrack());
 	roomUi.update();
+	
 });
