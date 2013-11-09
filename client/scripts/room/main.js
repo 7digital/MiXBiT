@@ -12,19 +12,25 @@ define([
 		function Room() {
 			console.log('Room | init');
 			var self = this;
-			this.player = new Player();
+			this.player = new Player(
+				function stateChanged() {
+					console.log('Main | player state changed');
+					self.ui.update();
+				}
+			);
 			this.ui = new Ui(this);
 			this.io = new Io(
 				function onConnect() {
-					console.log('Main | Io Connected');
+					console.log('Main | io connected');
 					self.ui.connected();
 				},
 				function onQueue(queue) {
-					console.log('Main | Io Queue');
+					console.log('Main | io queue');
 					var playlist = new Playlist();
-					self.player.updatePlaylist(playlist);
+					self.player.setPlaylist(playlist);
 					self.player.play();
-					self.ui.update(playlist);
+					self.ui.setPlaylist(playlist);
+					self.ui.update();
 				}
 			);
 		}

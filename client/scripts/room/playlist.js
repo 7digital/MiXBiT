@@ -12,7 +12,7 @@ define([
 		];
 		this._currentTrack = {
 			url: 'http://s3.amazonaws.com/audiojs/04-islands-is-the-limit.mp3',
-			position: 0.3
+			position: 0.9
 		};
 		this._trackQueue = [
 			'http://s3.amazonaws.com/audiojs/05-one-more-chance-for-a-heart-to-skip-a-beat.mp3',
@@ -38,7 +38,8 @@ define([
 	Playlist.prototype.next = function () {
 		console.log('Playlist | next');
 		this._currentTrack = {
-			url : this._trackQueue[0]
+			url: this._trackQueue[0],
+			position: 0
 		};
 		this._trackQueue.splice(0, 1);
 	};

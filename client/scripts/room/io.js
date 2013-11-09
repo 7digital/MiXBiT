@@ -4,16 +4,16 @@ define([
 ], function (_, socketio) {
 	'use strict';
 
-	function Io(onConnectCallback, onQueueCallback) {
+	function Io(onConnectCallback, onRoomStateCallback) {
 		console.log('IO | init');
 		var self = this;
 		this.socket = socketio.connect();
 		this.onConnectCallback = onConnectCallback;
-		this.onQueueCallback = onQueueCallback;
+		this.onRoomStateCallback = onRoomStateCallback;
 		this.socket.on('connect', function () {
 			setTimeout(function () {
 				self.onConnect();
-			}, 2000);
+			}, 1000);
 		});
 	}
 
@@ -26,18 +26,18 @@ define([
 		console.log('Client session id %s', self.socket.sessionid);
 		console.log('Joining room %s', roomId);
 		this.socket.emit('room', roomId);
-		this.socket.on('queue', function (queue) {
+		this.socket.on('room-state', function (roomState) {
 			setTimeout(function () {
-				self.onQueue(queue);
-			}, 2000);
+				self.onRoomState(roomState);
+			}, 1000);
 
 		});
 	};
 
-	Io.prototype.onQueue = function (queue) {
+	Io.prototype.onRoomState = function (roomState) {
 		console.log('IO | queue');
-		// console.log(queue);
-		this.onQueueCallback(queue);
+		console.log(roomState);
+		this.onRoomStateCallback(roomState);
 	};
 
 	return Io;

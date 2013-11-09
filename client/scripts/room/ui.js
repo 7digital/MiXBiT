@@ -17,6 +17,11 @@ define([
 		this.$trackQueue = this.$room.find('.track-queue');
 	}
 
+	Ui.prototype.setPlaylist = function (playlist) {
+		console.log('Ui | set playlist');
+		this.playlist = playlist;
+	}
+
 	Ui.prototype.connected = function () {
 		console.log('Ui | connected');
 		this.$roomLoadingStatus.text('Syncing with server...');
@@ -29,9 +34,8 @@ define([
 		this.isLoading = false;
 	};
 
-	Ui.prototype.update = function (playlist) {
+	Ui.prototype.update = function () {
 		console.log('UI | update');
-		this.playlist = playlist;
 		if (this.isLoading) {
 			this.hideLoading();
 		}
@@ -50,6 +54,7 @@ define([
 		console.log('UI | render track history');
 		var self = this;
 		var trackHistory = this.playlist.getTrackHistory();
+		self.$trackHistory.empty();
 		_.forEach(trackHistory, function (track) {
 			self.$trackHistory.append('<li>' + track + '</li>');
 		});
@@ -66,6 +71,7 @@ define([
 		console.log('UI | render track queue');
 		var self = this;
 		var trackQueue = this.playlist.getTrackQueue();
+		self.$trackQueue.empty();
 		_.forEach(trackQueue, function (track) {
 			self.$trackQueue.append('<li>' + track + '</li>');
 		});
