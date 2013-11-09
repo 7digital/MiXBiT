@@ -6,8 +6,10 @@ var isProduction, port,
 	rollbar = require('rollbar'),
 	path = require('path'),
 	pkg = require('./package'),
+	sock = require('./sock'),
 	app = express(),
 	server = require('http').createServer(app),
+	io = require('socket.io').listen(server),
 	hbjs = require('express3-handlebars'),
 	routes = require('./routes'),
 	port = 3000,
@@ -55,6 +57,7 @@ app.get('/', routes.index);
 app.get('/room/:id', routes.room);
 
 // startup
+sock(io);
 server.listen(port, function(err) {
 	if (err) { console.error(err); process.exit(-1); }
 

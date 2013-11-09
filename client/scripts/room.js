@@ -1,8 +1,16 @@
 define([
 	'lodash',
-	'jquery'
-], function (_, $) {
+	'jquery',
+	'socketio'
+], function (_, $, io) {
 	'use strict';
+
+	//var socket = io.connect('http://localhost:3000/');
+	/*
+	socket.on('queue', function (data) {
+		console.log(data);
+	});
+	*/
 
 	var Room = (function () {
 
@@ -74,5 +82,4 @@ define([
 	var roomUi = new RoomUi(room);
 
 	roomUi.update();
-
 });
