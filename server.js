@@ -52,6 +52,7 @@ app.use(rollbar.errorHandler(process.env.ROLLBAR_ACCESS_TOKEN));
 
 // routes
 app.get('/', routes.index);
+app.get('/room/:id', routes.room);
 
 // startup
 server.listen(port, function(err) {
