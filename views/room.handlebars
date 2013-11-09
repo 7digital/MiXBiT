@@ -10,17 +10,23 @@
 <section class="room loading">
 	<h1>Music room</h1>
 	<p>Welcome to room '<span class="room-title"></span>' 'id:{{ id }}'</p>
-	<p>
-		Just heard:
-		<ul class="track-history"></ul>
-	</p>
-	<p>
-		Now playing: <span class="current-track-title"></span> at <span class="current-track-position"></span>
-	</p>
-	<p>
-		Coming up:
-		<ul class="track-queue"></ul>
-	</p>
+	<div class="track-history">
+		<p>
+			Just heard:
+		</p>
+		<ul></ul>
+	</div>
+	<div class="current-track">
+		<p>
+			Now playing: <span class="current-track-title"></span> at <span class="current-track-position"></span>
+		</p>
+	</div>
+	<div class="track-queue">
+		<p>
+			Coming up:
+		</p>
+		<ul></ul>
+	</div>
 </section>
 
 <section class="room-loading">

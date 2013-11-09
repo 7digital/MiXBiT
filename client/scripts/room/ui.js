@@ -11,10 +11,10 @@ define([
 		this.$roomLoading = $('.room-loading');
 		this.$roomLoadingStatus = this.$roomLoading.find('.status');
 		this.$roomTitle = this.$room.find('.room-title');
-		this.$trackHistory = this.$room.find('.track-history');
+		this.$trackHistory = this.$room.find('.track-history ul');
 		this.$currentTrackTitle = this.$room.find('.current-track-title');
 		this.$currentTrackPosition = this.$room.find('.current-track-position');
-		this.$trackQueue = this.$room.find('.track-queue');
+		this.$trackQueue = this.$room.find('.track-queue ul');
 	}
 
 	Ui.prototype.setPlaylist = function (playlist) {
