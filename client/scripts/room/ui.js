@@ -4,9 +4,8 @@ define([
 ], function (_, $) {
 	'use strict';
 
-	function Ui(room) {
+	function Ui() {
 		console.log('UI | init');
-		this.room = room;
 		this.isLoading = true;
 		this.$room = $('.room');
 		this.$roomLoading = $('.room-loading');
@@ -19,17 +18,20 @@ define([
 	}
 
 	Ui.prototype.connected = function () {
+		console.log('Ui | connected');
 		this.$roomLoadingStatus.text('Syncing with server...');
 	};
 
 	Ui.prototype.hideLoading = function () {
+		console.log('Ui | hide loading');
 		this.$room.removeClass('loading');
 		this.$roomLoading.addClass('hidden');
 		this.isLoading = false;
 	};
 
-	Ui.prototype.update = function () {
+	Ui.prototype.update = function (playlist) {
 		console.log('UI | update');
+		this.playlist = playlist;
 		if (this.isLoading) {
 			this.hideLoading();
 		}
@@ -47,7 +49,7 @@ define([
 	Ui.prototype.renderTrackHistory = function () {
 		console.log('UI | render track history');
 		var self = this;
-		var trackHistory = this.room.playlist.trackHistory();
+		var trackHistory = this.playlist.getTrackHistory();
 		_.forEach(trackHistory, function (track) {
 			self.$trackHistory.append('<li>' + track + '</li>');
 		});
@@ -55,7 +57,7 @@ define([
 
 	Ui.prototype.renderCurrentTrack = function () {
 		console.log('UI | render current track');
-		var currentTrack = this.room.playlist.currentTrack();
+		var currentTrack = this.playlist.getCurrentTrack();
 		this.$currentTrackTitle.text(currentTrack.url);
 		this.$currentTrackPosition.text(currentTrack.position + 's');
 	};
@@ -63,7 +65,7 @@ define([
 	Ui.prototype.renderTrackQueue = function () {
 		console.log('UI | render track queue');
 		var self = this;
-		var trackQueue = this.room.playlist.trackQueue();
+		var trackQueue = this.playlist.getTrackQueue();
 		_.forEach(trackQueue, function (track) {
 			self.$trackQueue.append('<li>' + track + '</li>');
 		});

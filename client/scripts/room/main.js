@@ -1,10 +1,10 @@
 define([
 	'lodash',
-	'audiojs',
 	'room/ui',
 	'room/io',
+	'room/player',
 	'room/playlist'
-], function (_, audiojs, Ui, Io, Playlist) {
+], function (_, Ui, Io, Player, Playlist) {
 	'use strict';
 
 	var Room = (function () {
@@ -12,48 +12,27 @@ define([
 		function Room() {
 			console.log('Room | init');
 			var self = this;
-			this.playlist = new Playlist();
-			this.player = audiojs.createAll({
-				trackEnded: function () {
-					self.play(self.playlist.nextTrack());
-				}
-			})[0];
-		}
-
-		Room.prototype.play = function (track) {
-			console.log('Room | play');
-			var self = this;
-			this.player.load(track.url);
-			if (this.playIntervalId) {
-				clearInterval(this.playIntervalId);
-			}
-			this.playIntervalId = setInterval(function () {
-				if (self.player.loadedPercent > track.position) {
-					clearInterval(self.playIntervalId);
-					self.player.skipTo(track.position);
+			this.player = new Player();
+			this.ui = new Ui(this);
+			this.io = new Io(
+				function onConnect() {
+					console.log('Main | Io Connected');
+					self.ui.connected();
+				},
+				function onQueue(queue) {
+					console.log('Main | Io Queue');
+					var playlist = new Playlist();
+					self.player.updatePlaylist(playlist);
 					self.player.play();
+					self.ui.update(playlist);
 				}
-			}, 100);
-		};
+			);
+		}
 
 		return Room;
 
 	})();
 
 	var room = new Room();
-	var ui = new Ui(room);
-	var io = new Io(
-		function onConnect() {
-			console.log('Main | Io Connected');
-			ui.connected();
-		},
-		function onQueue(queue) {
-			console.log('Main | Io Queue');
-			console.log(queue);
-			var playlist = new Playlist();
-			room.play(playlist.currentTrack());
-			ui.update();
-		}
-	);
 
 });

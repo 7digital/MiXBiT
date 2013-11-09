@@ -35,7 +35,8 @@ define([
 	};
 
 	Io.prototype.onQueue = function (queue) {
-		console.log('IO | queue');;
+		console.log('IO | queue');
+		// console.log(queue);
 		this.onQueueCallback(queue);
 	};
 
