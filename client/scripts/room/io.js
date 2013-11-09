@@ -35,7 +35,7 @@ define([
 	};
 
 	Io.prototype.onRoomState = function (roomState) {
-		console.log('IO | queue');
+		console.log('IO | room state');
 		console.log(roomState);
 		this.onRoomStateCallback(roomState);
 	};

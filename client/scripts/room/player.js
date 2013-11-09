@@ -50,7 +50,7 @@ define([
 
 	Player.prototype._seekTo = function (position) {
 		position = position || 0;
-		console.log('Player | skip to %s%', position * 100);
+		console.log('Player | seek to %s%', position * 100);
 		var self = this;
 		var seekStarted = new Date();
 		var lastPartialSeek = new Date();
@@ -61,7 +61,7 @@ define([
 		this.playIntervalId = setInterval(function () {
 			var now = new Date();
 			if ((now - seekStarted) > 60000) {
-				console.log('PLAYER ERROR, skip timeout elapsed, playing again');
+				console.log('PLAYER ERROR, play/seek timeout elapsed, playing again');
 				clearInterval(this.playIntervalId);
 				self.play();
 			}
@@ -69,7 +69,7 @@ define([
 				return;
 			}
 			if (self.audioJsPlayer.loadedPercent > position) {
-				console.log('Player | skipping to %s%', position * 100);
+				console.log('Player | seeking to %s%', position * 100);
 				clearInterval(self.playIntervalId);
 				self.audioJsPlayer.play();
 				self.audioJsPlayer.skipTo(position);
@@ -78,7 +78,7 @@ define([
 				var elapsed = now - lastPartialSeek;
 				if (elapsed > 300) {
 					var partialPosition = self.audioJsPlayer.loadedPercent * 0.75;
-					console.log('Player | partial skip to %s%', partialPosition * 100);
+					console.log('Player | partial seek to %s%', partialPosition * 100);
 					self.audioJsPlayer.skipTo(partialPosition);
 					lastPartialSeek = now;
 				}
