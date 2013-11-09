@@ -14,3 +14,4 @@ docs
 .tern-port
 /client/bower_components/
 /.sass-cache/
+/.idea/
