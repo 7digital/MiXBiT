@@ -1,5 +1,5 @@
 <section class="create-a-room">
-    <a class="btn large" href="/create" title="Create a room">Create</a>
+    <a class="btn large" href="/room/create" title="Create a room">Create</a>
 </section>
 
 <section class="room-selection">
@@ -7,17 +7,10 @@
         <li class="room">
             <a href="/room/123" title="">Demo 1</a>
         </li>
+{{#each rooms}}
         <li class="room">
-            <a href="#" title="">Room 2</a>
+            <a href="/room/#{id}" title="{{name}}">{{name}}/a>
         </li>
-        <li class="room">
-            <a href="#" title="">Room 3</a>
-        </li>
-        <li class="room">
-            <a href="#" title="">Room 4</a>
-        </li>
-        <li class="room">
-            <a href="#" title="">Room 5</a>
-        </li>
+{{/each}}
     </ul>
 </section>

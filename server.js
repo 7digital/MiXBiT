@@ -6,12 +6,12 @@ var isProduction, port,
 	rollbar = require('rollbar'),
 	path = require('path'),
 	pkg = require('./package'),
-	sock = require('./sock'),
+	sock = require('./lib/sock'),
 	app = express(),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server),
 	hbjs = require('express3-handlebars'),
-	routes = require('./routes'),
+	routes = require('./lib/routes'),
 	port = 3000,
 	url  = 'http://localhost:' + port + '/';
 
@@ -55,6 +55,7 @@ app.use(rollbar.errorHandler(process.env.ROLLBAR_ACCESS_TOKEN));
 // routes
 app.get('/', routes.index);
 app.get('/room/:id', routes.room);
+app.post('/room/create', routes.createRoom);
 
 // startup
 sock(io);
