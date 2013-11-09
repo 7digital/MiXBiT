@@ -12,6 +12,19 @@ define([
 		this.$room = $room;
 	}
 
+	Player.prototype.setPlaylist = function (playlist) {
+		console.log('Player | update playlist');
+		this._playlist = playlist;
+	};
+
+	Player.prototype.play = function () {
+		console.log('Player | play');
+		this._resetAudio();
+		this._currentTrack = this._playlist.getCurrentTrack();
+		this.audioJsPlayer.load(this._currentTrack.url);
+		this._skipTo(this._currentTrack.position);
+	};
+
 	Player.prototype._resetAudio = function () {
 		console.log('Player | create audio');
 		var self = this;
@@ -30,14 +43,6 @@ define([
 				self.play();
 			}
 		})[0];
-	};
-
-	Player.prototype.play = function () {
-		console.log('Player | play');
-		this._resetAudio();
-		this._currentTrack = this._playlist.getCurrentTrack();
-		this.audioJsPlayer.load(this._currentTrack.url);
-		this._skipTo(this._currentTrack.position);
 	};
 
 	Player.prototype._skipTo = function (position) {
@@ -77,11 +82,6 @@ define([
 		} else {
 			this.stateChangedCallback();
 		}
-	};
-
-	Player.prototype.setPlaylist = function (playlist) {
-		console.log('Player | update playlist');
-		this._playlist = playlist;
 	};
 
 	return Player;
