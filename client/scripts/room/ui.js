@@ -12,8 +12,10 @@ define([
 		this.$roomLoadingStatus = this.$roomLoading.find('.status');
 		this.$roomTitle = this.$room.find('.room-title');
 		this.$trackHistory = this.$room.find('.track-history ul');
-		this.$currentTrackTitle = this.$room.find('.current-track-title');
-		this.$currentTrackPosition = this.$room.find('.current-track-position');
+		this.$previousTrackTitle = this.$room.find('.previous-track .track-title');
+		this.$currentTrackTitle = this.$room.find('.current-track .track-title');
+		this.$currentTrackPosition = this.$room.find('.current-track .track-position');
+		this.$nextTrackTitle = this.$room.find('.next-track .track-title');
 		this.$trackQueue = this.$room.find('.track-queue ul');
 	}
 

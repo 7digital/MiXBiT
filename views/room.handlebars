@@ -1,32 +1,112 @@
 <style>
-  .room.loading {
-	display: none;
-  }
-  .room-loading.hidden {
-	display: none;
-  }
+	.room.loading {
+		display: none;
+	}
+
+	.room-loading.hidden {
+		display: none;
+	}
+
+	.cf:before,
+	.cf:after {
+		content: " "; /* 1 */
+		display: table; /* 2 */
+	}
+
+	.cf:after {
+		clear: both;
+	}
+
+	.three-columns {
+		background: olive;
+
+	}
+
+	.three-columns .left,
+	.three-columns .middle,
+	.three-columns .right {
+		width: 33%;
+		float: left;
+	}
+
+	.three-columns .left {
+		background: indianred;
+	}
+
+	.three-columns .middle {
+		background: red;
+	}
+
+	.three-columns .right {
+		background: darkred;
+	}
+
+	.two-columns {
+		background: lawngreen;
+
+	}
+
+	.two-columns .left,
+	.two-columns .right {
+		width: 50%;
+		float: left;
+	}
+
+	.two-columns .left {
+		background: indianred;
+	}
+
+	.two-columns .right {
+		background: darkred;
+	}
+
 </style>
 
 <section class="room loading">
 	<h1>Music room</h1>
+
 	<p>Welcome to room '<span class="room-title"></span>' 'id:{{ id }}'</p>
-	<div class="track-history">
-		<p>
-			Just heard:
-		</p>
-		<ul></ul>
+
+	<div class="three-columns cf">
+
+		<div class="previous-track left">
+			<p>
+				Previous: <span class="track-title"></span>
+			</p>
+		</div>
+
+		<div class="current-track middle">
+			<p>
+				Now playing: <span class="track-title"></span> at <span class="track-position"></span>
+			</p>
+		</div>
+
+		<div class="next-track right">
+			<p>
+				Next track: <span class="track-title"></span>
+			</p>
+		</div>
+
 	</div>
-	<div class="current-track">
-		<p>
-			Now playing: <span class="current-track-title"></span> at <span class="current-track-position"></span>
-		</p>
+
+	<div class="two-columns cf">
+
+		<div class="track-history left">
+			<p>
+				Just heard:
+			</p>
+			<ul></ul>
+		</div>
+
+		<div class="track-queue right">
+			<p>
+				Coming up:
+			</p>
+			<ul></ul>
+		</div>
+
 	</div>
-	<div class="track-queue">
-		<p>
-			Coming up:
-		</p>
-		<ul></ul>
-	</div>
+
 </section>
 
 <section class="room-loading">
