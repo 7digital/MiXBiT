@@ -10,7 +10,8 @@ define([
 		this.$room = $('.room');
 		this.$roomLoading = $('.room-loading');
 		this.$roomLoadingStatus = this.$roomLoading.find('.status');
-		this.$roomTitle = this.$room.find('.room-title');
+		this.$roomTitle = this.$room.find('.room-title a');
+		this.$roomGenre = this.$room.find('.room-genre');
 		this.$trackHistory = this.$room.find('.track-history ul');
 		this.$previousTrackTitle = this.$room.find('.previous-track .track-title');
 		this.$currentTrackTitle = this.$room.find('.current-track .track-title');
@@ -18,6 +19,11 @@ define([
 		this.$nextTrackTitle = this.$room.find('.next-track .track-title');
 		this.$trackQueue = this.$room.find('.track-queue ul');
 	}
+
+	Ui.prototype.setRoomState = function (roomState) {
+		this._roomTitle = roomState.name;
+		this._roomGenre = roomState.genre;
+	};
 
 	Ui.prototype.setPlaylist = function (playlist) {
 		console.log('Ui | set playlist');
@@ -51,7 +57,8 @@ define([
 
 	Ui.prototype._renderRoomInfo = function () {
 		console.log('UI | render room info');
-		this.$roomTitle.text('ROOM TITLE');
+		this.$roomTitle.text(this._roomTitle || 'NO ROOM TITLE');
+		this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
 	};
 
 	Ui.prototype._formatTrack = function (track) {

@@ -30,6 +30,7 @@ define([
 					self.playlist.loadFromRoomState(roomState);
 					self.player.setPlaylist(self.playlist);
 					self.player.play();
+					self.ui.setRoomState(roomState);
 					self.ui.setPlaylist(self.playlist);
 					self.ui.update();
 				}
