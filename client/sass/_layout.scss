@@ -1,15 +1,16 @@
 body {
-	background-color: #333;
+	background: #333 url('/images/default-background.gif') repeat;
 	color: #fff;
-	font-family: 'Sintony', sans-serif;
+	font-family: 'Raleway', sans-serif;
 }
 
 header {
 	position: relative;
 
 	h1 {
-		width: 70%;
-		margin: 0 auto;
+		max-width: 400px;
+		width: 40%;
+		margin: 40px auto 0;
 
 		a {
 			display: block;

@@ -1,6 +1,15 @@
-<section class="room">
+<style>
+  .room.loading {
+	display: none;
+  }
+  .room-loading.hidden {
+	display: none;
+  }
+</style>
+
+<section class="room loading">
 	<h1>Music room</h1>
-	<p>Welcome to room 'id:{{ id }}'</p>
+	<p>Welcome to room '<span class="room-title"></span>' 'id:{{ id }}'</p>
 	<p>
 		Just heard:
 		<ul class="track-history"></ul>
@@ -12,9 +21,14 @@
 		Coming up:
 		<ul class="track-queue"></ul>
 	</p>
-	<audio preload></audio>
+
+	<audio preload class="player"></audio>
+</section>
+
+<section class="room-loading">
+	<span class="status">Connecting to server...</span>
 </section>
 
 <script type="text/javascript">
-	require(['room/main'], function (room) {});
+	require(['room/main']);
 </script>
