@@ -4,24 +4,40 @@ define([
 ], function (_, socketio) {
 	'use strict';
 
-	function Io(onConnect, onQueue) {
+	function Io(onConnectCallback, onQueueCallback) {
+		console.log('IO | init');
 		var self = this;
 		this.socket = socketio.connect();
-		this.onConnect = onConnect;
-		this.onQueue = onQueue;
-
+		this.onConnectCallback = onConnectCallback;
+		this.onQueueCallback = onQueueCallback;
 		this.socket.on('connect', function () {
-			self.onConnect();
-			var url = document.URL;
-			var roomId = url.substring(url.lastIndexOf('/'));
-			console.log('Client session id %s', self.socket.sessionid);
-			console.log('Joining room %s', roomId);
-			self.socket.emit('room', roomId);
-			self.socket.on('queue', function (queue) {
-				self.onQueue(queue);
-			});
+			setTimeout(function () {
+				self.onConnect();
+			}, 2000);
 		});
 	}
+
+	Io.prototype.onConnect = function () {
+		console.log('IO | connect');
+		var self = this;
+		this.onConnectCallback();
+		var url = document.URL;
+		var roomId = url.substring(url.lastIndexOf('/'));
+		console.log('Client session id %s', self.socket.sessionid);
+		console.log('Joining room %s', roomId);
+		this.socket.emit('room', roomId);
+		this.socket.on('queue', function (queue) {
+			setTimeout(function () {
+				self.onQueue(queue);
+			}, 2000);
+
+		});
+	};
+
+	Io.prototype.onQueue = function (queue) {
+		console.log('IO | queue');;
+		this.onQueueCallback(queue);
+	};
 
 	return Io;
 

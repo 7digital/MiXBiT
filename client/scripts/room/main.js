@@ -45,6 +45,7 @@ define([
 	var io = new Io(
 		function onConnect() {
 			console.log('Main | Io Connected');
+			ui.connected();
 		},
 		function onQueue(queue) {
 			console.log('Main | Io Queue');
