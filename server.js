@@ -10,6 +10,7 @@ var isProduction, port,
 	sock = require('./lib/sock'),
 	app = express(),
 	rooms = require('./lib/rooms'),
+	robotMonitor = require('./lib/robot-monitor'),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server),
 	hbjs = require('express3-handlebars'),
@@ -67,7 +68,7 @@ app.get('/room/:id', routes.room);
 app.post('/room/create', routes.createRoom);
 
 // startup
-sock(io);
+sock.listen(io);
 
 rooms.init(function () {
 	server.listen(port, function(err) {
@@ -82,5 +83,7 @@ rooms.init(function () {
 		}
 
 		console.log("%s server listening on port %s", pkg.name, port);
+		robotMonitor.monitor();
+		console.log('Robot DJ is running');
 	});
 });
