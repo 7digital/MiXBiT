@@ -66,22 +66,19 @@ define([
 		var isConnected = this.io.isConnected();
 		var hasSynced = this.io.hasSynched();
 		if (!isConnected && !hasSynced) {
-			if (this._lastUiStatus.isConnected !== isConnected) {
-				this._lastUiStatus.isConnected = isConnected;
+			if (this._isDirty('isConnected', isConnected)) {
 				this.$roomLoadingStatus.text('Connecting to server...');
 				updated = true;
 			}
 		}
 		if (isConnected && !hasSynced) {
-			if (this._lastUiStatus.hasSynched !== hasSynced) {
-				this._lastUiStatus.hasSynched = hasSynced;
+			if (this._isDirty('hasSynced', hasSynced)) {
 				this.$roomLoadingStatus.text('Syncing with server...');
 				updated = true;
 			}
 		}
 		if (isConnected && hasSynced) {
-			if (!this._lastUiStatus.isLoaded) {
-				this._lastUiStatus.isLoaded = true;
+			if (this._isDirty('isLoaded', true)) {
 				this.$room.removeClass('is-loading');
 				this.$roomLoading.addClass('is-hidden');
 				updated = true;
@@ -94,13 +91,11 @@ define([
 
 	Ui.prototype._renderRoomInfo = function () {
 		var updated = false;
-		if (this._lastUiStatus.roomTitle !== this._roomTitle) {
-			this._lastUiStatus.roomTitle = this._roomTitle;
+		if (this._isDirty('roomTitle', this._roomTitle)) {
 			this.$roomTitle.text(this._roomTitle || 'NO ROOM TITLE');
 			updated = true;
 		}
-		if (this._lastUiStatus.roomGenre !== this._roomGenre) {
-			this._lastUiStatus.roomGenre = this._roomGenre;
+		if (this._isDirty('roomGenre', this._roomGenre)) {
 			this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
 			updated = true;
 		}
@@ -108,16 +103,6 @@ define([
 			console.log('UI | render room info');
 		}
 	};
-
-//	Ui.prototype._formatTrackAsListItems = function (track) {
-//		if (!track) {
-//			return null;
-//		}
-//		var trackArtistListItem = '<li class="track-artist">' + track.artist + '</li>';
-//		var trackTitleListItem = '<li class="track-title">' + track.title + '</li>';
-//		var trackAlbumListItem = '<li class="track-album">' + track.album + '</li>';
-//		return trackArtistListItem  + trackTitleListItem + trackAlbumListItem;
-//	};
 
 	Ui.prototype._formatTrackDetailsShort = function (track) {
 		if (!track) {
@@ -205,9 +190,12 @@ define([
 //	};
 
 	Ui.prototype._renderPlayer = function () {
-		var playerStatus = this.player.getPlayerState().status;
-		if (!_.isEqual(this._lastUiStatus.playerStatus, playerStatus)) {
-			this._lastUiStatus.playerStatus = _.cloneDeep(playerStatus);
+		var playerState = this.player.getPlayerState();
+		if (this._isDirty('playerState', playerState)) {
+			var playerStatus = 'Loading...';
+			if (playerState) {
+				playerStatus = playerState.status;
+			}
 			this.$playerStatus.text(playerStatus);
 			console.log('UI | render player status');
 		}
