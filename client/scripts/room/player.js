@@ -7,8 +7,7 @@ define([
 	function Player($room) {
 		console.log('Player | init');
 		this.$room = $room;
-		// this.$player = $room.find('.player');
-		this.$player = $room;
+		this.$player = $room.find('.debug');
 		this._playlist = null;
 		this._currentTrack = null;
 	}
@@ -55,6 +54,7 @@ define([
 		var self = this;
 		var seekStarted = new Date();
 		var lastPartialSeek = new Date();
+		var lastPartialSeekPosition = 0;
 		if (this.playIntervalId) {
 			clearInterval(this.playIntervalId);
 		}
@@ -75,8 +75,9 @@ define([
 				self.audioJsPlayer.skipTo(position);
 			} else {
 				var elapsed = now - lastPartialSeek;
-				if (elapsed > 300) {
-					var partialPosition = self.audioJsPlayer.loadedPercent * 0.75;
+				var partialPosition = self.audioJsPlayer.loadedPercent * 0.75;
+				if (elapsed > 300 && (partialPosition - lastPartialSeekPosition) > 0.05) {
+					lastPartialSeekPosition = partialPosition;
 					console.log('Player | partial seek to %s%', partialPosition * 100);
 					self.audioJsPlayer.skipTo(partialPosition);
 					lastPartialSeek = now;
