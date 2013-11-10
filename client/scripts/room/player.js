@@ -6,8 +6,8 @@ define([
 
 	function Player($room) {
 		console.log('Player | init');
-		// this._stateChangedCallback = stateChangedCallback;
 		this.$room = $room;
+		this.$currentTrack = $room.find('.current-track');
 		this._playlist = null;
 		this._currentTrack = null;
 	}
@@ -19,7 +19,6 @@ define([
 
 	Player.prototype.play = function () {
 		console.log('Player | play');
-		// this._raiseStateChanged();
 		this._resetAudio();
 		this._currentTrack = this._playlist.getCurrentTrack();
 		if (!this._currentTrack) {
@@ -37,7 +36,7 @@ define([
 		}
 		this.$room.find('audio.player').remove();
 		this.$room.find('.audiojs').remove();
-		this.$room.find('.current-track').append('<audio preload class="player"></audio>');
+		this.$currentTrack.append('<audio preload class="player"></audio>');
 		this.audioJsPlayer = audiojs.createAll({
 			trackEnded: function () {
 				self._trackEnded();
@@ -73,7 +72,6 @@ define([
 				clearInterval(self.playIntervalId);
 				self.audioJsPlayer.play();
 				self.audioJsPlayer.skipTo(position);
-				// self._raiseStateChanged();
 			} else {
 				var elapsed = now - lastPartialSeek;
 				if (elapsed > 300) {
@@ -90,8 +88,6 @@ define([
 		console.log('Player | track ended');
 		if (this._playlist.next()) {
 			this.play();
-		// } else {
-			// this._raiseStateChanged();
 		}
 	};
 

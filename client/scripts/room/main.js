@@ -13,19 +13,14 @@ define([
 			console.log('Room | init');
 			var self = this;
 			this.ui = new Ui();
-			this.playlist = new Playlist(
-				function playlistChanged() {
-					console.log('Main | playlist changed');
-					self.ui.update();
-				}
-			);
+			this.playlist = new Playlist();
 			this.ui.setPlaylist(self.playlist);
 			this.player = new Player(this.ui.$room);
 			this.player.setPlaylist(this.playlist);
+			this.ui.setPlayer(this.player);
 			this.io = new Io(
 				function onConnect() {
 					console.log('Main | io connected');
-					self.ui.connected();
 				},
 				function onRoomState(roomState) {
 					console.log('Main | io room state');
@@ -38,6 +33,8 @@ define([
 					document.location.href = '/';
 				}
 			);
+			this.ui.setIo(this.io);
+			this.ui.trackChanges();
 		}
 
 		return Room;

@@ -21,40 +21,56 @@ define([
 		this.$trackQueue = this.$room.find('.track-queue ul');
 	}
 
-	Ui.prototype.setRoomState = function (roomState) {
-		console.log('Ui | set room state');
-		this._roomTitle = roomState.name;
-		this._roomGenre = roomState.genre;
-	};
+	Ui.prototype.setIo = function (io) {
+		console.log('Ui | set io');
+		this.io = io;
+	}
 
 	Ui.prototype.setPlaylist = function (playlist) {
 		console.log('Ui | set playlist');
 		this.playlist = playlist;
 	};
 
-	Ui.prototype.connected = function () {
-		console.log('Ui | connected');
-		this.$roomLoadingStatus.text('Syncing with server...');
+	Ui.prototype.setPlayer = function (player) {
+		console.log('Ui | set player');
+		this.player = player;
 	};
 
-	Ui.prototype.update = function () {
-		console.log('UI | update');
-		if (this.isLoading) {
-			this._hideLoading();
-		}
+	Ui.prototype.setRoomState = function (roomState) {
+		console.log('Ui | set room state');
+		this._roomTitle = roomState.name;
+		this._roomGenre = roomState.genre;
+	};
+
+	Ui.prototype.trackChanges = function () {
+		console.log('UI | track changes');
+		var self = this;
+		setInterval(function () {
+			self._update();
+		}, 100);
+	};
+
+	Ui.prototype._update = function () {
+		this._renderLoadingStatus();
 		this._renderRoomInfo();
 		this._renderTrackHistory();
 		this._renderPreviousTrack();
 		this._renderCurrentTrack();
 		this._renderNextTrack();
 		this._renderTrackQueue();
+		this._renderPlayer();
 	};
 
-	Ui.prototype._hideLoading = function () {
-		console.log('Ui | hide loading');
-		this.$room.removeClass('loading');
-		this.$roomLoading.addClass('hidden');
-		this.isLoading = false;
+	Ui.prototype._renderLoadingStatus = function () {
+		console.log('Ui | render loading status');
+		if (!this.io.isConnected()) {
+			this.$roomLoadingStatus.text('Connecting to server...');
+		} else	if (!this.io.hasSynched()) {
+			this.$roomLoadingStatus.text('Syncing with server...');
+		} else {
+			this.$room.removeClass('loading');
+			this.$roomLoading.addClass('hidden');
+		}
 	};
 
 	Ui.prototype._renderRoomInfo = function () {
@@ -84,18 +100,20 @@ define([
 		console.log('UI | render track history');
 		var self = this;
 		var trackHistory = this.playlist.getTrackHistory();
-		self.$trackHistory.empty();
-		_.each(trackHistory.slice(1), function (track) {
-			self.$trackHistory.append(self._formatTrackAsListItem(track));
-		});
+		this.$trackHistory.empty();
+		if (trackHistory && trackHistory.length) {
+			_.each(trackHistory.slice(1), function (track) {
+				self.$trackHistory.append(self._formatTrackAsListItem(track));
+			});
+		}
 	};
 
 	Ui.prototype._renderPreviousTrack = function () {
 		console.log('UI | render previous track');
-		var track = this.playlist._trackHistory[0];
 		var trackDetails = '<li>no previous track</li>';
-		if (track) {
-			trackDetails = this._formatTrackAsListItems(track);
+		var trackHistory = this.playlist.getTrackHistory();
+		if (trackHistory && trackHistory.length) {
+			trackDetails = this._formatTrackAsListItems(trackHistory[0]);
 		}
 		this.$previousTrackList.empty();
 		this.$previousTrackList.append(trackDetails);
@@ -103,9 +121,9 @@ define([
 
 	Ui.prototype._renderCurrentTrack = function () {
 		console.log('UI | render current track');
-		var track = this.playlist.getCurrentTrack();
 		var trackDetails = '<li>no track to play</li>';
 		var trackPosition = 0;
+		var track = this.playlist.getCurrentTrack();
 		if (track) {
 			trackDetails = this._formatTrackAsListItems(track);
 			trackPosition = (track.position * 100) + '%';
@@ -117,10 +135,10 @@ define([
 
 	Ui.prototype._renderNextTrack = function () {
 		console.log('UI | render next track');
-		var track = this.playlist._trackQueue[0];
+		var trackQueue = this.playlist.getTrackQueue();
 		var trackDetails = '<li>no next track</li>';
-		if (track) {
-			trackDetails = this._formatTrackAsListItems(track);
+		if (trackQueue && trackQueue.length) {
+			trackDetails = this._formatTrackAsListItems(trackQueue[0]);
 		}
 		this.$nextTrackList.empty();
 		this.$nextTrackList.append(trackDetails);
@@ -131,18 +149,16 @@ define([
 		var self = this;
 		var trackQueue = this.playlist.getTrackQueue();
 		self.$trackQueue.empty();
-		_.forEach(trackQueue.slice(1), function (track) {
-			self.$trackQueue.append('<li>' + self._formatTrackAsListItem(track) + '</li>');
-		});
+		if (trackQueue && trackQueue.length) {
+			_.forEach(trackQueue.slice(1), function (track) {
+				self.$trackQueue.append('<li>' + self._formatTrackAsListItem(track) + '</li>');
+			});
+		}
 	};
 
-	Ui.prototype.updatePlayer = function (playerState) {
-		this.playerState = playerState;
-		this._renderPlayerState();
-	};
-
-	Ui.prototype._renderPlayerState = function () {
-		this.$playerStatus.text(this.playerState.status);
+	Ui.prototype._renderPlayer = function () {
+		console.log('UI | render player');
+		this.$playerStatus.text(this.player.getPlayerStatus().status);
 	};
 
 	return Ui;

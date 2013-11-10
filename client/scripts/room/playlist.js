@@ -3,9 +3,8 @@ define([
 ], function (_) {
 	'use strict';
 
-	function Playlist(playlistChangedCallback) {
+	function Playlist() {
 		console.log('Playlist | init');
-		this._playlistChangedCallback = playlistChangedCallback;
 	}
 
 	Playlist.prototype.loadFromRoomState = function (roomState) {
@@ -15,8 +14,6 @@ define([
 		this._trackQueue = _.map(roomState.queue || [], this._convert, this);
 		if (!this._currentTrack && this._trackQueue.length) {
 			this.next();
-		} else {
-			this._playlistChangedCallback();
 		}
 	};
 
@@ -40,27 +37,22 @@ define([
 		}
 		if (!this._trackQueue.length){
 			this._currentTrack = null;
-			this._playlistChangedCallback();
 			return false;
 		}
 		this._currentTrack = this._trackQueue[0];
 		this._trackQueue.splice(0, 1);
-		this._playlistChangedCallback();
 		return true;
 	};
 
 	Playlist.prototype.getTrackHistory = function () {
-		// console.log('Playlist | track history');
 		return this._trackHistory;
 	};
 
 	Playlist.prototype.getCurrentTrack = function () {
-		// console.log('Playlist | current track');
 		return this._currentTrack;
 	};
 
 	Playlist.prototype.getTrackQueue = function () {
-		// console.log('Playlist | track queue');
 		return this._trackQueue;
 	};
 
