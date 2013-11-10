@@ -33,6 +33,9 @@ define([
 					self.ui.setRoomState(roomState);
 					self.ui.setPlaylist(self.playlist);
 					self.ui.update();
+				},
+				function onRoomError(roomError) {
+					document.location.href('/');
 				}
 			);
 		}
