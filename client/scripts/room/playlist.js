@@ -15,11 +15,9 @@ define([
 		this._trackQueue = _.map(roomState.queue || [], this._convert, this);
 		if (!this._currentTrack && this._trackQueue.length) {
 			this.next();
+		} else {
+			this._playlistChangedCallback();
 		}
-		if (this._currentTrack) {
-			this._currentTrack.position = 0.9;
-		}
-		this._playlistChangedCallback();
 	};
 
 	Playlist.prototype._convert = function (externalTrack) {
@@ -30,7 +28,8 @@ define([
 			artist: externalTrack.artistName || 'NO ARTIST',
 			title: externalTrack.trackName || 'NO TITLE',
 			album: externalTrack.releaseName || 'NO ALBUM',
-			url: externalTrack.url || 'NO URL'
+			url: externalTrack.url || 'NO URL',
+			position: 0.9
 		};
 	};
 
@@ -45,7 +44,6 @@ define([
 			return false;
 		}
 		this._currentTrack = this._trackQueue[0];
-		this._currentTrack.position = 0.9;
 		this._trackQueue.splice(0, 1);
 		this._playlistChangedCallback();
 		return true;

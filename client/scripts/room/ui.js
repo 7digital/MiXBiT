@@ -22,6 +22,7 @@ define([
 	}
 
 	Ui.prototype.setRoomState = function (roomState) {
+		console.log('Ui | set room state');
 		this._roomTitle = roomState.name;
 		this._roomGenre = roomState.genre;
 	};
