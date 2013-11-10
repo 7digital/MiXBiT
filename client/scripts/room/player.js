@@ -10,10 +10,11 @@ define([
 		this.$player = $room.find('.debug-player-container');
 		this._playlist = null;
 		this._currentTrack = null;
+		this._errorCount = 0;
 	}
 
 	Player.prototype.setPlaylist = function (playlist) {
-		console.log('Player | update playlist');
+		console.log('Player | set playlist');
 		this._playlist = playlist;
 	};
 
@@ -24,7 +25,7 @@ define([
 		if (!this._currentTrack) {
 			return;
 		}
-		this.audioJsPlayer.load(this._currentTrack.url);
+		this._audioJsPlayer.load(this._currentTrack.url);
 		this._seekTo(this._currentTrack.position);
 	};
 
@@ -37,12 +38,17 @@ define([
 		this.$room.find('audio.player').remove();
 		this.$room.find('.audiojs').remove();
 		this.$player.append('<audio preload class="player"></audio>');
-		this.audioJsPlayer = audiojs.createAll({
+		this._audioJsPlayer = audiojs.createAll({
 			trackEnded: function () {
 				self._trackEnded();
 			},
 			loadError: function() {
+				self._errorCount += 1;
 				console.error('PLAYER ERROR, cannot load, playing again');
+				if (self._errorCount > 20) {
+					console.error('PLAYER ERROR, too many errors');
+					return;
+				}
 				self.play();
 			}
 		})[0];
@@ -65,21 +71,21 @@ define([
 				clearInterval(self.playIntervalId);
 				self.play();
 			}
-			if (!self.audioJsPlayer.loadedPercent) {
+			if (!self._audioJsPlayer.loadedPercent) {
 				return;
 			}
-			if (self.audioJsPlayer.loadedPercent > position) {
+			if (self._audioJsPlayer.loadedPercent > position) {
 				console.log('Player | seeking to %s%', position * 100);
 				clearInterval(self.playIntervalId);
-				self.audioJsPlayer.play();
-				self.audioJsPlayer.skipTo(position);
+				self._audioJsPlayer.skipTo(position);
+				self._audioJsPlayer.play();
 			} else {
 				var elapsed = now - lastPartialSeek;
-				var partialPosition = self.audioJsPlayer.loadedPercent * 0.75;
+				var partialPosition = self._audioJsPlayer.loadedPercent * 0.75;
 				if (elapsed > 300 && (partialPosition - lastPartialSeekPosition) > 0.05) {
 					lastPartialSeekPosition = partialPosition;
 					console.log('Player | partial seek to %s%', partialPosition * 100);
-					self.audioJsPlayer.skipTo(partialPosition);
+					self._audioJsPlayer.skipTo(partialPosition);
 					lastPartialSeek = now;
 				}
 			}
@@ -97,13 +103,13 @@ define([
 		var playerStatus = 'Buffering...';
 		var duration = 0;
 		var elapsed = 0;
-		if (this.audioJsPlayer) {
-			if (this.audioJsPlayer.playing) {
+		if (this._audioJsPlayer) {
+			if (this._audioJsPlayer.playing) {
 				playerStatus = 'Playing';
 			}
-			duration = this.audioJsPlayer.duration;
-			if (this.audioJsPlayer.source) {
-				elapsed = this.audioJsPlayer.source.currentTime;
+			duration = this._audioJsPlayer.duration;
+			if (this._audioJsPlayer.source) {
+				elapsed = this._audioJsPlayer.source.currentTime;
 			}
 		}
 		return {
