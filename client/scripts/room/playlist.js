@@ -10,7 +10,7 @@ define([
 	Playlist.prototype.loadFromRoomState = function (roomState) {
 		console.log('Playlist | set from room state');
 		this._trackHistory = _.map((roomState.history || []).reverse(), this._convert, this);
-		this._currentTrack = this._convert(roomState.current);
+		this._currentTrack = this._convert(roomState.current) || null;
 		this._trackQueue = _.map(roomState.queue || [], this._convert, this);
 		if (!this._currentTrack && this._trackQueue.length) {
 			this.next();
