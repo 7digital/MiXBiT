@@ -40,6 +40,7 @@ if (process.env.NODE_ENV === 'production' || process.argv[2] === 'production') {
 	console.log('Running in production');
 	app.set('env', 'production');
 	isProduction = true;
+	port = 80;
 } else {
 	app.set('env', 'development');
 }
