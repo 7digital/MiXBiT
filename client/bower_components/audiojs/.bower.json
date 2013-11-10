@@ -1,0 +1,13 @@
+{
+  "name": "audiojs",
+  "homepage": "https://github.com/kolber/audiojs",
+  "_release": "8fbd9a6f1e",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8fbd9a6f1ea0badbfae2fd95502097038b095783"
+  },
+  "_source": "git://github.com/kolber/audiojs.git",
+  "_target": "*",
+  "_originalSource": "audiojs"
+}
