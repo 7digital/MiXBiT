@@ -4,9 +4,9 @@ define([
 ], function (_, audiojs) {
 	'use strict';
 
-	function Player(stateChangedCallback, $room) {
+	function Player($room) {
 		console.log('Player | init');
-		this._stateChangedCallback = stateChangedCallback;
+		// this._stateChangedCallback = stateChangedCallback;
 		this.$room = $room;
 		this._playlist = null;
 		this._currentTrack = null;
@@ -19,7 +19,7 @@ define([
 
 	Player.prototype.play = function () {
 		console.log('Player | play');
-		this._raiseStateChanged();
+		// this._raiseStateChanged();
 		this._resetAudio();
 		this._currentTrack = this._playlist.getCurrentTrack();
 		if (!this._currentTrack) {
@@ -27,10 +27,6 @@ define([
 		}
 		this.audioJsPlayer.load(this._currentTrack.url);
 		this._seekTo(this._currentTrack.position);
-	};
-
-	Player.prototype.getStatus = function () {
-		return this.audioJsPlayer.state;
 	};
 
 	Player.prototype._resetAudio = function () {
@@ -59,7 +55,6 @@ define([
 		var self = this;
 		var seekStarted = new Date();
 		var lastPartialSeek = new Date();
-		var lastPartialSeekPosition = new Date();
 		if (this.playIntervalId) {
 			clearInterval(this.playIntervalId);
 		}
@@ -67,7 +62,7 @@ define([
 			var now = new Date();
 			if ((now - seekStarted) > 60000) {
 				console.log('PLAYER ERROR, play/seek timeout elapsed, playing again');
-				clearInterval(this.playIntervalId);
+				clearInterval(self.playIntervalId);
 				self.play();
 			}
 			if (!self.audioJsPlayer.loadedPercent) {
@@ -78,7 +73,7 @@ define([
 				clearInterval(self.playIntervalId);
 				self.audioJsPlayer.play();
 				self.audioJsPlayer.skipTo(position);
-				self._raiseStateChanged();
+				// self._raiseStateChanged();
 			} else {
 				var elapsed = now - lastPartialSeek;
 				if (elapsed > 300) {
@@ -95,19 +90,19 @@ define([
 		console.log('Player | track ended');
 		if (this._playlist.next()) {
 			this.play();
-		} else {
-			this._raiseStateChanged();
+		// } else {
+			// this._raiseStateChanged();
 		}
 	};
 
-	Player.prototype._raiseStateChanged = function () {
+	Player.prototype.getPlayerStatus = function () {
 		var playerStatus = 'Buffering';
 		if (this.audioJsPlayer && this.audioJsPlayer.playing) {
 			playerStatus = 'Playing';
 		}
-		this._stateChangedCallback({
+		return {
 			status : playerStatus
-		});
+		};
 	};
 
 	return Player;

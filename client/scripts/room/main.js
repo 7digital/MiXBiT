@@ -20,13 +20,8 @@ define([
 				}
 			);
 			this.ui.setPlaylist(self.playlist);
-			this.player = new Player(
-				function stateChanged(playerState) {
-					console.log('Main | player state changed');
-					self.ui.updatePlayer(playerState);
-				}, this.ui.$room
-			);
-			self.player.setPlaylist(self.playlist);
+			this.player = new Player(this.ui.$room);
+			this.player.setPlaylist(this.playlist);
 			this.io = new Io(
 				function onConnect() {
 					console.log('Main | io connected');
