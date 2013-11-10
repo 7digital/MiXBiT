@@ -141,51 +141,40 @@ define([
 //		}
 //	};
 
+	Ui.prototype._renderTrack = function (track, fieldName, $element) {
+		track = track || null;
+		var trackDetails = 'no track';
+		if (!_.isEqual(this._lastUiStatus[fieldName], track)) {
+			this._lastUiStatus[fieldName] = _.cloneDeep(track);
+			if (track) {
+				trackDetails = this._formatTrackDetailsShort(track);
+			}
+			$element.text(trackDetails);
+			console.log('UI | render', fieldName);
+		}
+	};
+
 	Ui.prototype._renderPreviousTrack = function () {
-		var previousTrack = null;
-		var trackDetails = 'no previous track';
+		var previousTrack;
 		var trackHistory = this.playlist.getTrackHistory();
 		if (trackHistory && trackHistory.length) {
 			previousTrack = trackHistory[0];
 		}
-		if (!_.isEqual(this._lastUiStatus.previousTrack, previousTrack)) {
-			this._lastUiStatus.previousTrack = _.cloneDeep(previousTrack);
-			if (previousTrack) {
-				trackDetails = this._formatTrackDetailsShort(trackHistory[0]);
-			}
-			this.$previousTrackTitle.text(trackDetails);
-			console.log('UI | render previous track');
-		}
+		this._renderTrack(previousTrack, 'previousTrack', this.$previousTrackTitle);
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
-		var trackDetails = 'no track to play';
 		var currentTrack = this.playlist.getCurrentTrack();
-		if (!_.isEqual(this._lastUiStatus.currentTrack, currentTrack)) {
-			this._lastUiStatus.currentTrack = _.cloneDeep(currentTrack);
-			if (currentTrack) {
-				trackDetails = this._formatTrackDetailsShort(currentTrack);
-			}
-			this.$currentTrackTitle.text(trackDetails);
-			console.log('UI | render current track');
-		}
+		this._renderTrack(currentTrack, 'currentTrack', this.$currentTrackTitle);
 	};
 
 	Ui.prototype._renderNextTrack = function () {
-		var nextTrack = null;
-		var trackDetails = 'no next track';
+		var nextTrack;
 		var trackQueue = this.playlist.getTrackQueue();
 		if (trackQueue && trackQueue.length) {
 			nextTrack = trackQueue[0];
 		}
-		if (!_.isEqual(this._lastUiStatus.nextTrack, nextTrack)) {
-			this._lastUiStatus.nextTrack = _.cloneDeep(nextTrack);
-			if (nextTrack) {
-				trackDetails = this._formatTrackDetailsShort(nextTrack);
-			}
-			this.$nextTrackTitle.text(trackDetails);
-			console.log('UI | render next track');
-		}
+		this._renderTrack(nextTrack, 'nextTrack', this.$nextTrackTitle);
 	};
 
 //	Ui.prototype._renderTrackQueue = function () {
