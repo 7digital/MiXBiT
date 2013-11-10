@@ -54,7 +54,7 @@ define([
 		this._renderLoadingStatus(); // dirty checking
 		this._renderRoomInfo(); // dirty checking
 		this._renderTrackHistory(); // dirty checking
-		this._renderPreviousTrack();
+		this._renderPreviousTrack(); // dirty checking
 		this._renderCurrentTrack();
 		this._renderNextTrack();
 		this._renderTrackQueue();
@@ -67,23 +67,23 @@ define([
 		var hasSynced = this.io.hasSynched();
 		if (!isConnected && !hasSynced) {
 			if (this._lastUiStatus.isConnected !== isConnected) {
-				this.$roomLoadingStatus.text('Connecting to server...');
 				this._lastUiStatus.isConnected = isConnected;
+				this.$roomLoadingStatus.text('Connecting to server...');
 				updated = true;
 			}
 		}
 		if (isConnected && !hasSynced) {
 			if (this._lastUiStatus.hasSynched !== hasSynced) {
-				this.$roomLoadingStatus.text('Syncing with server...');
 				this._lastUiStatus.hasSynched = hasSynced;
+				this.$roomLoadingStatus.text('Syncing with server...');
 				updated = true;
 			}
 		}
 		if (isConnected && hasSynced) {
 			if (!this._lastUiStatus.isLoaded) {
+				this._lastUiStatus.isLoaded = true;
 				this.$room.removeClass('loading');
 				this.$roomLoading.addClass('hidden');
-				this._lastUiStatus.isLoaded = true;
 				updated = true;
 			}
 		}
@@ -95,13 +95,13 @@ define([
 	Ui.prototype._renderRoomInfo = function () {
 		var updated = false;
 		if (this._lastUiStatus.roomTitle !== this._roomTitle) {
-			this.$roomTitle.text(this._roomTitle || 'NO ROOM TITLE');
 			this._lastUiStatus.roomTitle = this._roomTitle;
+			this.$roomTitle.text(this._roomTitle || 'NO ROOM TITLE');
 			updated = true;
 		}
 		if (this._lastUiStatus.roomGenre !== this._roomGenre) {
-			this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
 			this._lastUiStatus.roomGenre = this._roomGenre;
+			this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
 			updated = true;
 		}
 		if (updated) {
@@ -130,26 +130,33 @@ define([
 		var self = this;
 		var trackHistory = this.playlist.getTrackHistory();
 		if (!_.isEqual(this._lastUiStatus.trackHistory, trackHistory)) {
+			this._lastUiStatus.trackHistory = _.cloneDeep(trackHistory);
 			this.$trackHistory.empty();
 			if (trackHistory && trackHistory.length) {
 				_.each(trackHistory.slice(1), function (track) {
 					self.$trackHistory.append(self._formatTrackAsListItem(track));
 				});
 			}
-			this._lastUiStatus.trackHistory = _.cloneDeep(trackHistory);
 			console.log('UI | render track history');
 		}
 	};
 
 	Ui.prototype._renderPreviousTrack = function () {
-		console.log('UI | render previous track');
-		var trackDetails = '<li>no previous track</li>';
+		var previousTrack = null;
 		var trackHistory = this.playlist.getTrackHistory();
 		if (trackHistory && trackHistory.length) {
-			trackDetails = this._formatTrackAsListItems(trackHistory[0]);
+			previousTrack = trackHistory[0];
 		}
-		this.$previousTrackList.empty();
-		this.$previousTrackList.append(trackDetails);
+		if (!_.isEqual(this._lastUiStatus.previousTrack, previousTrack)) {
+			this._lastUiStatus.previousTrack = _.cloneDeep(previousTrack);
+			var trackDetails = '<li>no previous track</li>';
+			if (previousTrack) {
+				trackDetails = this._formatTrackAsListItems(trackHistory[0]);
+			}
+			this.$previousTrackList.empty();
+			this.$previousTrackList.append(trackDetails);
+			console.log('UI | render previous track');
+		}
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
