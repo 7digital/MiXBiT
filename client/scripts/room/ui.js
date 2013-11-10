@@ -20,6 +20,7 @@ define([
 		this.$playerStatus = this.$room.find('.debug .player-status');
 		this.$playerElapsed = this.$room.find('.debug .player-elapsed');
 		this.$playerDuration = this.$room.find('.debug .player-duration');
+		this.$trackPosition = this.$room.find('.debug .track-position');
 		this.$skipCallback = this.$room.find('.debug .player-skip');
 		this.$skipCallback.click(skipCallBack);
 		this._lastUiStatus = {};
@@ -144,13 +145,16 @@ define([
 		this['_' + fieldName] = track;
 		var trackDetails = 'no track';
 		var trackImage = '/images/packshot-placeholder.png';
+		var trackPosition = 0;
 		if (this._isDirty(fieldName, track)) {
 			if (track) {
 				trackDetails = this._formatTrackDetailsShort(track);
 				trackImage = track.image;
+				trackPosition = track.position;
 			}
 			$element.find('.track-title').text(trackDetails);
 			$element.find('.track-packshot').attr('src', trackImage);
+			this.$trackPosition.text(parseInt(trackPosition * 100, 10));
 			console.log('UI | render', fieldName);
 		}
 	};

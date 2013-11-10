@@ -50,6 +50,9 @@ define([
 					return;
 				}
 				self.play();
+			},
+			updatePlayhead: function(percent) {
+				self._currentTrack.position = Math.round(percent * 100) / 100;
 			}
 		})[0];
 	};
