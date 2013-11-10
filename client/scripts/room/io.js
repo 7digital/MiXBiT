@@ -24,10 +24,8 @@ define([
 		this._onConnectCallback();
 		var url = document.URL;
 		var roomId = url.substring(url.lastIndexOf('/') + 1);
-		console.group();
-		console.log('Client session id %s', self.socket.sessionid);
-		console.log('Joining room %s', roomId);
-		console.groupEnd();
+		console.log('IO | connect | session id %s', self.socket.sessionid);
+		console.log('IO | connect | room id %s', roomId);
 		this.socket.emit('room', roomId);
 		this._isConnected = true;
 		this._hasSynched = false;
