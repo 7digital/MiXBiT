@@ -57,7 +57,7 @@ define([
 		this._renderPreviousTrack(); // dirty checking
 		this._renderCurrentTrack(); // dirty checking
 		this._renderNextTrack(); // dirty checking
-		this._renderTrackQueue();
+		this._renderTrackQueue(); // dirty checking
 		this._renderPlayer();
 	};
 
@@ -196,14 +196,17 @@ define([
 	};
 
 	Ui.prototype._renderTrackQueue = function () {
-		console.log('UI | render track queue');
 		var self = this;
 		var trackQueue = this.playlist.getTrackQueue();
-		self.$trackQueue.empty();
-		if (trackQueue && trackQueue.length) {
-			_.forEach(trackQueue.slice(1), function (track) {
-				self.$trackQueue.append('<li>' + self._formatTrackAsListItem(track) + '</li>');
-			});
+		if (!_.isEqual(this._lastUiStatus.trackQueue, trackQueue)) {
+			this._lastUiStatus.trackQueue = _.cloneDeep(trackQueue);
+			self.$trackQueue.empty();
+			if (trackQueue && trackQueue.length) {
+				_.forEach(trackQueue.slice(1), function (track) {
+					self.$trackQueue.append('<li>' + self._formatTrackAsListItem(track) + '</li>');
+				});
+			}
+			console.log('UI | render track queue');
 		}
 	};
 
