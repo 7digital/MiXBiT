@@ -38,6 +38,10 @@ define([
 		this.$room.find('audio.player').remove();
 		this.$room.find('.audiojs').remove();
 		this.$player.append('<audio preload class="player"></audio>');
+		if (this._audioJsPlayer) {
+			this._audioJsPlayer.updatePlayhead = function() {};
+			delete this._audioJsPlayer;
+		}
 		this._audioJsPlayer = audiojs.createAll({
 			trackEnded: function () {
 				self._trackEnded();
