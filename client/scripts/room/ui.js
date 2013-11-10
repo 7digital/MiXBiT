@@ -4,7 +4,7 @@ define([
 ], function (_, $) {
 	'use strict';
 
-	function Ui() {
+	function Ui(skipCallBack) {
 		console.log('UI | init');
 		this.$room = $('.room');
 		this.$roomLoading = $('.room-loading');
@@ -13,11 +13,15 @@ define([
 		this.$roomGenre = this.$room.find('.room-info-genre');
 		// this.$trackHistory = this.$room.find('.track-history ul'); // REMOVE
 		this.$previousTrack = this.$room.find('.player-track-previous');
-		this.$playerStatus = this.$room.find('.player-status');
 		this.$currentTrack = this.$room.find('.player-track-current');
 		// this.$currentTrackPosition = this.$room.find('.current-track .track-position'); // REMOVE
 		this.$nextTrack = this.$room.find('.player-track-next');
 		// this.$trackQueue = this.$room.find('.track-queue ul'); // REMOVE
+		this.$playerStatus = this.$room.find('.debug .player-status');
+		this.$playerElapsed = this.$room.find('.debug .player-elapsed');
+		this.$playerDuration = this.$room.find('.debug .player-duration');
+		this.$skipCallback = this.$room.find('.debug .player-skip');
+		this.$skipCallback.click(skipCallBack);
 		this._lastUiStatus = {};
 	}
 
@@ -193,12 +197,29 @@ define([
 		var playerState = this.player.getPlayerState();
 		if (this._isDirty('playerState', playerState)) {
 			var playerStatus = 'Loading...';
+			var playerElapsed = 0;
+			var playerDuration = 0;
 			if (playerState) {
 				playerStatus = playerState.status;
+				playerElapsed = playerState.elapsed;
+				playerDuration = playerState.duration;
 			}
 			this.$playerStatus.text(playerStatus);
-			console.log('UI | render player status');
+			this.$playerElapsed.text(this._toHHMMSS(playerElapsed));
+			this.$playerDuration.text(this._toHHMMSS(playerDuration));
+			// console.log('UI | render player status');
 		}
+	};
+
+	Ui.prototype._toHHMMSS = function (value) {
+		var sec_num = parseInt(value, 10);
+		var hours   = Math.floor(sec_num / 3600);
+		var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+		var seconds = sec_num - (hours * 3600) - (minutes * 60);
+		if (hours   < 10) {hours   = "0" + hours;}
+		if (minutes < 10) {minutes = "0" + minutes;}
+		if (seconds < 10) {seconds = "0" + seconds;}
+		return hours + ':' + minutes + ':' + seconds;
 	};
 
 	return Ui;

@@ -12,7 +12,10 @@ define([
 		function Room() {
 			console.log('Room | init');
 			var self = this;
-			this.ui = new Ui();
+			this.ui = new Ui(function skip() {
+				self.playlist.next();
+				self.player.play();
+			});
 			this.playlist = new Playlist();
 			this.ui.setPlaylist(self.playlist);
 			this.player = new Player(this.ui.$room);

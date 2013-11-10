@@ -7,7 +7,7 @@ define([
 	function Player($room) {
 		console.log('Player | init');
 		this.$room = $room;
-		this.$player = $room.find('.debug');
+		this.$player = $room.find('.debug-player-container');
 		this._playlist = null;
 		this._currentTrack = null;
 	}
@@ -94,12 +94,22 @@ define([
 	};
 
 	Player.prototype.getPlayerState = function () {
-		var playerStatus = 'Buffering';
-		if (this.audioJsPlayer && this.audioJsPlayer.playing) {
-			playerStatus = 'Playing';
+		var playerStatus = 'Buffering...';
+		var duration = 0;
+		var elapsed = 0;
+		if (this.audioJsPlayer) {
+			if (this.audioJsPlayer.playing) {
+				playerStatus = 'Playing';
+			}
+			duration = this.audioJsPlayer.duration;
+			if (this.audioJsPlayer.source) {
+				elapsed = this.audioJsPlayer.source.currentTime;
+			}
 		}
 		return {
-			status : playerStatus
+			status: playerStatus,
+			duration: Math.round(duration),
+			elapsed: Math.round(elapsed)
 		};
 	};
 
