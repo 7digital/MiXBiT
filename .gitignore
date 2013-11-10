@@ -15,5 +15,4 @@ docs
 /client/bower_components/
 /.sass-cache/
 /.idea/
-/.tmp/
 dump.rdb
