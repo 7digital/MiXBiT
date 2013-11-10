@@ -794,7 +794,7 @@ section.room.is-loading .player {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/raoul\/code\/node-knockout\/client\/sass\/core\.scss}line{font-family:\0000325}}
 .nko-social {
   position: absolute;
-  top: 10px;
+  top: 80px;
   right: 0;
   background-color: #fff;
   opacity: .7;
@@ -805,4 +805,11 @@ section.room.is-loading .player {
   -ms-border-radius: 4px 0 0 4px;
   -o-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/core\.scss}line{font-family:\0000336}}
+.poweredby {
+  right: 10px;
+  position: absolute;
+  top: 8px;
 }
