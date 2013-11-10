@@ -21,6 +21,14 @@
     padding-right: 6px;
 }
 
+.tooltip-header,
+ .tooltip-album-title {
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .tooltip-header {
     color: #fff;
     display: block;
