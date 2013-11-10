@@ -84,7 +84,7 @@ body {
   background: #333333 url("/images/default-background.gif") repeat;
   color: #fff;
   font-family: 'Raleway', sans-serif;
-  max-width: 960px;
+  max-width: 760px;
   min-width: 420px;
   margin: 40px auto;
   padding: 0 40px;
@@ -107,11 +107,10 @@ header h1 a {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/_layout\.scss}line{font-family:\0000325}}
 .main-content {
-  position: relative;
   min-height: 600px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/_layout\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/_layout\.scss}line{font-family:\0000329}}
 .branding {
   width: 100%;
 }
@@ -263,7 +262,7 @@ header h1 a {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8);
   opacity: 0;
   z-index: -1;
   -webkit-transition: opacity 0.2s linear;
@@ -282,7 +281,7 @@ header h1 a {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_modal\.scss}line{font-family:\0000321}}
 .modal.is-visible, .modal:target {
   opacity: 1;
-  z-index: 1;
+  z-index: 2;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_modal\.scss}line{font-family:\0000326}}
 .modal input[type="submit"] {
@@ -598,20 +597,25 @@ header h1 a {
   font-size: 14px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\000033}}
-.room.is-loading {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\000031}}
+.room {
+  position: relative;
+  min-height: 600px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\000038}}
+.room.is-loading .room-info,
+.room.is-loading .player {
   display: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\0000314}}
 .room-loading {
   position: absolute;
-  top: 10px;
+  top: 20px;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: #222020;
-  width: 100%;
   z-index: 2;
   border: 1px solid #666;
   -webkit-border-radius: 4px;
@@ -620,17 +624,23 @@ header h1 a {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\0000325}}
 .room-loading.is-hidden {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_room\.scss}line{font-family:\0000329}}
 .room-loading .status {
-  margin: 40% auto;
+  margin: 0 auto;
   display: block;
   width: 300px;
   text-align: center;
   font-size: 20px;
+  vertical-align: middle;
+  position: absolute;
+  top: 46%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /**
@@ -670,7 +680,37 @@ header h1 a {
   font-size: 14px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/core\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\000031}}
+.debug {
+  font-size: 0.75em;
+  position: absolute;
+  right: 2em;
+  top: 7em;
+  opacity: 0.3;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\000039}}
+.debug:hover {
+  opacity: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000314}}
+.debug span,
+.debug a {
+  line-height: 1.3em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000318}}
+.debug .player-skip {
+  color: white;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000322}}
+.debug .debug-player-container {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/core\.scss}line{font-family:\0000323}}
 .nko-social {
   position: absolute;
   top: 10px;

@@ -1,0 +1,24 @@
+.debug {
+    font-size: 0.75em;
+    position: absolute;
+    right: 2em;
+    top: 7em;
+    opacity: 0.3;
+}
+
+.debug:hover {
+    opacity: 1;
+}
+
+.debug span,
+.debug a {
+    line-height: 1.3em;
+}
+
+.debug .player-skip {
+    color: white;
+}
+
+.debug .debug-player-container {
+    display: none;
+}
