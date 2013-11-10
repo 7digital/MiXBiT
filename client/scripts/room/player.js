@@ -91,7 +91,7 @@ define([
 		}
 	};
 
-	Player.prototype.getPlayerStatus = function () {
+	Player.prototype.getPlayerState = function () {
 		var playerStatus = 'Buffering';
 		if (this.audioJsPlayer && this.audioJsPlayer.playing) {
 			playerStatus = 'Playing';

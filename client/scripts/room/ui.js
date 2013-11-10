@@ -51,13 +51,13 @@ define([
 	};
 
 	Ui.prototype._update = function () {
-		this._renderLoadingStatus(); // dirty checking
-		this._renderRoomInfo(); // dirty checking
-		this._renderTrackHistory(); // dirty checking
-		this._renderPreviousTrack(); // dirty checking
-		this._renderCurrentTrack(); // dirty checking
-		this._renderNextTrack(); // dirty checking
-		this._renderTrackQueue(); // dirty checking
+		this._renderLoadingStatus();
+		this._renderRoomInfo();
+		this._renderTrackHistory();
+		this._renderPreviousTrack();
+		this._renderCurrentTrack();
+		this._renderNextTrack();
+		this._renderTrackQueue();
 		this._renderPlayer();
 	};
 
@@ -211,8 +211,12 @@ define([
 	};
 
 	Ui.prototype._renderPlayer = function () {
-		console.log('UI | render player');
-		this.$playerStatus.text(this.player.getPlayerStatus().status);
+		var playerStatus = this.player.getPlayerState().status;
+		if (!_.isEqual(this._lastUiStatus.playerStatus, playerStatus)) {
+			this._lastUiStatus.playerStatus = _.cloneDeep(playerStatus);
+			this.$playerStatus.text(playerStatus);
+			console.log('UI | render player status');
+		}
 	};
 
 	return Ui;
