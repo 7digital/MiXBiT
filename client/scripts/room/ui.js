@@ -9,15 +9,15 @@ define([
 		this.$room = $('.room');
 		this.$roomLoading = $('.room-loading');
 		this.$roomLoadingStatus = this.$roomLoading.find('.status');
-		this.$roomTitle = this.$room.find('.room-title a');
+		this.$roomTitle = this.$room.find('.room-info-title a');
 		this.$roomGenre = this.$room.find('.room-info-genre');
-		this.$trackHistory = this.$room.find('.track-history ul');
-		this.$previousTrackList = this.$room.find('.previous-track ul');
+		// this.$trackHistory = this.$room.find('.track-history ul'); // REMOVE
+		this.$previousTrackTitle = this.$room.find('.player-track-previous .track-title');
 		this.$playerStatus = this.$room.find('.player-status');
-		this.$currentTrackList = this.$room.find('.current-track ul');
-		this.$currentTrackPosition = this.$room.find('.current-track .track-position');
-		this.$nextTrackList = this.$room.find('.next-track ul');
-		this.$trackQueue = this.$room.find('.track-queue ul');
+		this.$currentTrackTitle = this.$room.find('.player-track-current .track-title');
+		// this.$currentTrackPosition = this.$room.find('.current-track .track-position'); // REMOVE
+		this.$nextTrackTitle = this.$room.find('.player-track-next .track-title');
+		// this.$trackQueue = this.$room.find('.track-queue ul'); // REMOVE
 		this._lastUiStatus = {};
 	}
 
@@ -53,11 +53,11 @@ define([
 	Ui.prototype._update = function () {
 		this._renderLoadingStatus();
 		this._renderRoomInfo();
-		this._renderTrackHistory();
+		// this._renderTrackHistory();
 		this._renderPreviousTrack();
 		this._renderCurrentTrack();
 		this._renderNextTrack();
-		this._renderTrackQueue();
+		// this._renderTrackQueue();
 		this._renderPlayer();
 	};
 
@@ -119,96 +119,89 @@ define([
 		return trackArtistListItem  + trackTitleListItem + trackAlbumListItem;
 	};
 
-	Ui.prototype._formatTrackAsListItem = function (track) {
+	Ui.prototype._formatTrackDetailsShort = function (track) {
 		if (!track) {
 			return null;
 		}
-		return '<li>' + track.artist + ' - ' + track.title + "</li>";
+		return track.artist + ' - ' + track.title;
 	};
 
-	Ui.prototype._renderTrackHistory = function () {
-		var self = this;
-		var trackHistory = this.playlist.getTrackHistory();
-		if (!_.isEqual(this._lastUiStatus.trackHistory, trackHistory)) {
-			this._lastUiStatus.trackHistory = _.cloneDeep(trackHistory);
-			this.$trackHistory.empty();
-			if (trackHistory && trackHistory.length) {
-				_.each(trackHistory.slice(1), function (track) {
-					self.$trackHistory.append(self._formatTrackAsListItem(track));
-				});
-			}
-			console.log('UI | render track history');
-		}
-	};
+//	Ui.prototype._renderTrackHistory = function () {
+//		var self = this;
+//		var trackHistory = this.playlist.getTrackHistory();
+//		if (!_.isEqual(this._lastUiStatus.trackHistory, trackHistory)) {
+//			this._lastUiStatus.trackHistory = _.cloneDeep(trackHistory);
+//			this.$trackHistory.empty();
+//			if (trackHistory && trackHistory.length) {
+//				_.each(trackHistory.slice(1), function (track) {
+//					self.$trackHistory.append(self._formatTrackDetailsShort(track));
+//				});
+//			}
+//			console.log('UI | render track history');
+//		}
+//	};
 
 	Ui.prototype._renderPreviousTrack = function () {
 		var previousTrack = null;
+		var trackDetails = 'no previous track';
 		var trackHistory = this.playlist.getTrackHistory();
 		if (trackHistory && trackHistory.length) {
 			previousTrack = trackHistory[0];
 		}
 		if (!_.isEqual(this._lastUiStatus.previousTrack, previousTrack)) {
 			this._lastUiStatus.previousTrack = _.cloneDeep(previousTrack);
-			var trackDetails = '<li>no previous track</li>';
 			if (previousTrack) {
-				trackDetails = this._formatTrackAsListItems(trackHistory[0]);
+				trackDetails = this._formatTrackDetailsShort(trackHistory[0]);
 			}
-			this.$previousTrackList.empty();
-			this.$previousTrackList.append(trackDetails);
+			this.$previousTrackTitle.text(trackDetails);
 			console.log('UI | render previous track');
 		}
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
-		var trackDetails = '<li>no track to play</li>';
-		var trackPosition = 0;
+		var trackDetails = 'no track to play';
 		var currentTrack = this.playlist.getCurrentTrack();
 		if (!_.isEqual(this._lastUiStatus.currentTrack, currentTrack)) {
 			this._lastUiStatus.currentTrack = _.cloneDeep(currentTrack);
 			if (currentTrack) {
-				trackDetails = this._formatTrackAsListItems(currentTrack);
-				trackPosition = (currentTrack.position * 100) + '%';
+				trackDetails = this._formatTrackDetailsShort(currentTrack);
 			}
-			this.$currentTrackList.empty();
-			this.$currentTrackList.append(trackDetails);
-			this.$currentTrackPosition.text(trackPosition);
+			this.$currentTrackTitle.text(trackDetails);
 			console.log('UI | render current track');
 		}
 	};
 
 	Ui.prototype._renderNextTrack = function () {
-
 		var nextTrack = null;
+		var trackDetails = 'no next track';
 		var trackQueue = this.playlist.getTrackQueue();
-		var trackDetails = '<li>no next track</li>';
 		if (trackQueue && trackQueue.length) {
 			nextTrack = trackQueue[0];
 		}
 		if (!_.isEqual(this._lastUiStatus.nextTrack, nextTrack)) {
 			this._lastUiStatus.nextTrack = _.cloneDeep(nextTrack);
 			if (nextTrack) {
-				trackDetails = this._formatTrackAsListItems(nextTrack);
+				trackDetails = this._formatTrackDetailsShort(nextTrack);
 			}
-			this.$nextTrackList.empty();
-			this.$nextTrackList.append(trackDetails);
+			this.$nextTrackTitle.text(trackDetails);
 			console.log('UI | render next track');
 		}
 	};
 
-	Ui.prototype._renderTrackQueue = function () {
-		var self = this;
-		var trackQueue = this.playlist.getTrackQueue();
-		if (!_.isEqual(this._lastUiStatus.trackQueue, trackQueue)) {
-			this._lastUiStatus.trackQueue = _.cloneDeep(trackQueue);
-			self.$trackQueue.empty();
-			if (trackQueue && trackQueue.length) {
-				_.forEach(trackQueue.slice(1), function (track) {
-					self.$trackQueue.append('<li>' + self._formatTrackAsListItem(track) + '</li>');
-				});
-			}
-			console.log('UI | render track queue');
-		}
-	};
+//	Ui.prototype._renderTrackQueue = function () {
+//		var self = this;
+//		var trackQueue = this.playlist.getTrackQueue();
+//		if (!_.isEqual(this._lastUiStatus.trackQueue, trackQueue)) {
+//			this._lastUiStatus.trackQueue = _.cloneDeep(trackQueue);
+//			self.$trackQueue.empty();
+//			if (trackQueue && trackQueue.length) {
+//				_.forEach(trackQueue.slice(1), function (track) {
+//					self.$trackQueue.append('<li>' + self._formatTrackDetailsShort(track) + '</li>');
+//				});
+//			}
+//			console.log('UI | render track queue');
+//		}
+//	};
 
 	Ui.prototype._renderPlayer = function () {
 		var playerStatus = this.player.getPlayerState().status;
