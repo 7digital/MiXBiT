@@ -14,7 +14,7 @@ define([
 		this.$roomGenre = this.$room.find('.room-genre');
 		this.$trackHistory = this.$room.find('.track-history ul');
 		this.$previousTrackList = this.$room.find('.previous-track ul');
-		this.$playerState = this.$room.find('.current-track .player-state');
+		this.$playerStatus = this.$room.find('.player-status');
 		this.$currentTrackList = this.$room.find('.current-track ul');
 		this.$currentTrackPosition = this.$room.find('.current-track .track-position');
 		this.$nextTrackList = this.$room.find('.next-track ul');
@@ -141,7 +141,7 @@ define([
 	};
 
 	Ui.prototype._renderPlayerState = function () {
-		this.$playerState.text(this.playerState.status);
+		this.$playerStatus.text(this.playerState.status);
 	};
 
 	return Ui;

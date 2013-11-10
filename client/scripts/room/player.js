@@ -101,10 +101,14 @@ define([
 	};
 
 	Player.prototype._raiseStateChanged = function () {
+		var playerStatus = 'Buffering';
+		if (this.audioJsPlayer && this.audioJsPlayer.playing) {
+			playerStatus = 'Playing';
+		}
 		this._stateChangedCallback({
-			status : 'STATUS'
+			status : playerStatus
 		});
-	}
+	};
 
 	return Player;
 
