@@ -13,10 +13,10 @@ define([
 		this.$roomTitle = this.$room.find('.room-title a');
 		this.$roomGenre = this.$room.find('.room-genre');
 		this.$trackHistory = this.$room.find('.track-history ul');
-		this.$previousTrackTitle = this.$room.find('.previous-track .track-title');
-		this.$currentTrackTitle = this.$room.find('.current-track .track-title');
+		this.$previousTrackList = this.$room.find('.previous-track ul');
+		this.$currentTrackList = this.$room.find('.current-track ul');
 		this.$currentTrackPosition = this.$room.find('.current-track .track-position');
-		this.$nextTrackTitle = this.$room.find('.next-track .track-title');
+		this.$nextTrackList = this.$room.find('.next-track ul');
 		this.$trackQueue = this.$room.find('.track-queue ul');
 	}
 
@@ -61,11 +61,21 @@ define([
 		this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
 	};
 
-	Ui.prototype._formatTrack = function (track) {
+	Ui.prototype._formatTrackAsListItems = function (track) {
 		if (!track) {
 			return null;
 		}
-		return '<span title="' + track.url + '">' + track.artist + ' - ' + track.title + "</span>";
+		var trackArtistListItem = '<li class="track-artist">' + track.artist + '</li>';
+		var trackTitleListItem = '<li class="track-title">' + track.title + '</li>';
+		var trackAlbumListItem = '<li class="track-album">' + track.album + '</li>';
+		return trackArtistListItem  + trackTitleListItem + trackAlbumListItem;
+	};
+
+	Ui.prototype._formatTrackAsListItem = function (track) {
+		if (!track) {
+			return null;
+		}
+		return '<li>' + track.artist + ' - ' + track.title + "</li>";
 	};
 
 	Ui.prototype._renderTrackHistory = function () {
@@ -74,41 +84,44 @@ define([
 		var trackHistory = this.playlist.getTrackHistory();
 		self.$trackHistory.empty();
 		_.each(trackHistory.slice(1), function (track) {
-			self.$trackHistory.append('<li>' + self._formatTrack(track) + '</li>');
+			self.$trackHistory.append(self._formatTrackAsListItem(track));
 		});
 	};
 
 	Ui.prototype._renderPreviousTrack = function () {
 		console.log('UI | render previous track');
 		var track = this.playlist._trackHistory[0];
-		var trackTitle = 'no previous track';
+		var trackDetails = '<li>no previous track</li>';
 		if (track) {
-			trackTitle = this._formatTrack(track);
+			trackDetails = this._formatTrackAsListItems(track);
 		}
-		this.$previousTrackTitle.html(trackTitle);
+		this.$previousTrackList.empty();
+		this.$previousTrackList.append(trackDetails);
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
 		console.log('UI | render current track');
 		var track = this.playlist.getCurrentTrack();
-		var trackTitle = 'no track to play';
+		var trackDetails = '<li>no track to play</li>';
 		var trackPosition = 0;
 		if (track) {
-			trackTitle = this._formatTrack(track);
+			trackDetails = this._formatTrackAsListItems(track);
 			trackPosition = (track.position * 100) + '%';
 		}
-		this.$currentTrackTitle.html(trackTitle);
+		this.$currentTrackList.empty();
+		this.$currentTrackList.append(trackDetails);
 		this.$currentTrackPosition.text(trackPosition);
 	};
 
 	Ui.prototype._renderNextTrack = function () {
 		console.log('UI | render next track');
 		var track = this.playlist._trackQueue[0];
-		var trackTitle = 'no next track';
+		var trackDetails = '<li>no next track</li>';
 		if (track) {
-			trackTitle = this._formatTrack(track);
+			trackDetails = this._formatTrackAsListItems(track);
 		}
-		this.$nextTrackTitle.html(trackTitle);
+		this.$nextTrackList.empty();
+		this.$nextTrackList.append(trackDetails);
 	};
 
 	Ui.prototype._renderTrackQueue = function () {
@@ -117,7 +130,7 @@ define([
 		var trackQueue = this.playlist.getTrackQueue();
 		self.$trackQueue.empty();
 		_.forEach(trackQueue.slice(1), function (track) {
-			self.$trackQueue.append('<li>' + self._formatTrack(track) + '</li>');
+			self.$trackQueue.append('<li>' + self._formatTrackAsListItem(track) + '</li>');
 		});
 	};
 
