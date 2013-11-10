@@ -4,7 +4,7 @@
 
 <section class="room-selection">
     <h2 class="header">ROOM SELECTION</h2>
-    <ul>
+    <ul class="room-list">
     {{#each rooms}}
         <li class="room">
             <a class="cube {{toLowerCase genre}}" href="/room/{{id}}" title="{{name}}">{{name}}
@@ -18,6 +18,14 @@
         </li>
     {{/each}}
     </ul>
+
+    <ul class="room-key">
+        <li class="rock">Rock</li>
+        <li class="techo">Techo</li>
+        <li class="disco">Disco</li>
+        <li class="hip-hop">Hip - Hop</li>
+    </ul>
+
 </section>
 
 <section id="create-room" class="modal room-creator">
@@ -25,7 +33,7 @@
 
         <div class="data-field">
             <label for="name">Name</label>
-            <input tabindex="1" type="text" id="name" name="name"></input>™
+            <input tabindex="1" type="text" id="name" name="name"></input>
         </div>
 
         <div class="data-field">
