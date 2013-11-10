@@ -6,7 +6,6 @@ define([
 
 	function Ui() {
 		console.log('UI | init');
-		this.isLoading = true;
 		this.$room = $('.room');
 		this.$roomLoading = $('.room-loading');
 		this.$roomLoadingStatus = this.$roomLoading.find('.status');
@@ -19,12 +18,13 @@ define([
 		this.$currentTrackPosition = this.$room.find('.current-track .track-position');
 		this.$nextTrackList = this.$room.find('.next-track ul');
 		this.$trackQueue = this.$room.find('.track-queue ul');
+		this._lastUiStatus = {};
 	}
 
 	Ui.prototype.setIo = function (io) {
 		console.log('Ui | set io');
 		this.io = io;
-	}
+	};
 
 	Ui.prototype.setPlaylist = function (playlist) {
 		console.log('Ui | set playlist');
@@ -51,8 +51,8 @@ define([
 	};
 
 	Ui.prototype._update = function () {
-		this._renderLoadingStatus();
-		this._renderRoomInfo();
+		this._renderLoadingStatus(); // dirty flag
+		this._renderRoomInfo(); // dirty flag
 		this._renderTrackHistory();
 		this._renderPreviousTrack();
 		this._renderCurrentTrack();
@@ -62,21 +62,43 @@ define([
 	};
 
 	Ui.prototype._renderLoadingStatus = function () {
-		console.log('Ui | render loading status');
-		if (!this.io.isConnected()) {
-			this.$roomLoadingStatus.text('Connecting to server...');
-		} else	if (!this.io.hasSynched()) {
-			this.$roomLoadingStatus.text('Syncing with server...');
-		} else {
-			this.$room.removeClass('loading');
-			this.$roomLoading.addClass('hidden');
+		var updated = false;
+		var isConnected = this.io.isConnected();
+		var hasSynced = this.io.hasSynched();
+		if (!isConnected && !hasSynced) {
+			if (this._lastUiStatus.isConnected !== isConnected) {
+				this.$roomLoadingStatus.text('Connecting to server...');
+				this._lastUiStatus.isConnected = isConnected;
+				updated = true;
+			}
+		}
+		if (isConnected && !hasSynced) {
+			if (this._lastUiStatus.hasSynched !== hasSynced) {
+				this.$roomLoadingStatus.text('Syncing with server...');
+				this._lastUiStatus.hasSynched = hasSynced;
+				updated = true;
+			}
+		}
+		if (isConnected && hasSynced) {
+			if (!this._lastUiStatus.isLoaded) {
+				this.$room.removeClass('loading');
+				this.$roomLoading.addClass('hidden');
+				this._lastUiStatus.isLoaded = true;
+				updated = true;
+			}
+		}
+		if (updated) {
+			console.log('Ui | render loading status');
 		}
 	};
 
 	Ui.prototype._renderRoomInfo = function () {
-		console.log('UI | render room info');
-		this.$roomTitle.text(this._roomTitle || 'NO ROOM TITLE');
-		this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
+		if (this._infoNeedsUpdating) {
+			console.log('UI | render room info');
+			this.$roomTitle.text(this._roomTitle || 'NO ROOM TITLE');
+			this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
+		}
+		this._infoNeedsUpdating = false;
 	};
 
 	Ui.prototype._formatTrackAsListItems = function (track) {

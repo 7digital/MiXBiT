@@ -57,11 +57,11 @@ define([
 	};
 
 	Io.prototype.isConnected = function () {
-		return this._isConnected;
+		return this._isConnected || false;
 	};
 
 	Io.prototype.hasSynched = function () {
-		return this._hasSynched;
+		return this._hasSynched || false;
 	};
 
 	return Io;
