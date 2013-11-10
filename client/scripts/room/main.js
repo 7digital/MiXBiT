@@ -15,6 +15,7 @@ define([
 			this.ui = new Ui(function skip() {
 				self.playlist.next();
 				self.player.play();
+				return false;
 			});
 			this.playlist = new Playlist();
 			this.ui.setPlaylist(self.playlist);
