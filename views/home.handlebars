@@ -9,10 +9,10 @@
         <li class="room">
             <a class="cube {{toLowerCase genre}}" href="/room/{{id}}" title="{{name}}">{{name}}
                 <span class="tooltip">
-                    <img class="tooltip-thumb" src="http://placehold.it/50x50" alt="">
-                    <strong class="tooltip-header">Turbo Fun!!!</strong>
-                    <em class="tooltip-album-title">The Smiths - Cemetry Gates</em>
-                    <span class="tooltip-listeners">Listeners: <strong>10</strong></span>
+                    <img class="tooltip-thumb" src="{{smallPack current.image}}" alt="">
+                    <strong class="tooltip-header">{{name}}</strong>
+                    <em class="tooltip-album-title">{{current.artistName}}- {{current.trackName}}</em>
+                    <span class="tooltip-listeners">Listeners: <strong>{{listeners}}</strong></span>
                 </span>
             </a>
         </li>

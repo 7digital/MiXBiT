@@ -24,6 +24,14 @@ var hbs = hbjs.create({
 			toLowerCase: function (string) {
 				'use strict';
 				return string.toLowerCase();
+			},
+			smallPack: function (string) {
+				'use strict';
+				return string.replace(/_350.jpg$/, '_50.jpg');
+			},
+			listeners: function () {
+				'use strict';
+				return Math.floor(Math.random() * 16).toString();
 			}
 		}
 	});
@@ -32,7 +40,6 @@ if (process.env.NODE_ENV === 'production' || process.argv[2] === 'production') {
 	console.log('Running in production');
 	app.set('env', 'production');
 	isProduction = true;
-	port = (isProduction ? 80 : 8000);
 } else {
 	app.set('env', 'development');
 }
@@ -48,8 +55,9 @@ if (app.get('env') === 'development') {
 	app.use(express.favicon(__dirname + '/client/images/favicon.ico'));
 	app.use(express.errorHandler());
 } else if (app.get('env') === 'production') {
-	app.set('views', __dirname + '/dist/views');
-	app.use(express.static(path.join(__dirname, 'dist/client')));
+	app.set('views', __dirname + '/views');
+	app.use(express.static(path.join(__dirname, '.tmp')));
+	app.use(express.static(path.join(__dirname, 'client')));
 	app.use(express.logger());
 	app.use(express.favicon(__dirname + '/dist/client/images/favicon.ico'));
 }
