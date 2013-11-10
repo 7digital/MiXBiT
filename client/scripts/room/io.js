@@ -12,9 +12,7 @@ define([
 		this._onRoomStateCallback = onRoomStateCallback;
 		this._onRoomErrorCallback = onRoomErrorCallback;
 		this.socket.on('connect', function () {
-			setTimeout(function () {
-				self._onConnect();
-			}, 1000);
+			self._onConnect();
 		});
 	}
 
@@ -32,14 +30,10 @@ define([
 		this._isConnected = true;
 		this._hasSynched = false;
 		this.socket.on('room-state', function (roomState) {
-			setTimeout(function () {
-				self._onRoomState(roomState);
-			}, 1000);
+			self._onRoomState(roomState);
 		});
 		this.socket.on('room-error', function (roomError) {
-			setTimeout(function () {
-				self._onRoomError(roomError);
-			}, 1000);
+			self._onRoomError(roomError);
 		});
 	};
 
