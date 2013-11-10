@@ -12,11 +12,11 @@ define([
 		this.$roomTitle = this.$room.find('.room-info-title a');
 		this.$roomGenre = this.$room.find('.room-info-genre');
 		// this.$trackHistory = this.$room.find('.track-history ul'); // REMOVE
-		this.$previousTrackTitle = this.$room.find('.player-track-previous .track-title');
+		this.$previousTrack = this.$room.find('.player-track-previous');
 		this.$playerStatus = this.$room.find('.player-status');
-		this.$currentTrackTitle = this.$room.find('.player-track-current .track-title');
+		this.$currentTrack = this.$room.find('.player-track-current');
 		// this.$currentTrackPosition = this.$room.find('.current-track .track-position'); // REMOVE
-		this.$nextTrackTitle = this.$room.find('.player-track-next .track-title');
+		this.$nextTrack = this.$room.find('.player-track-next');
 		// this.$trackQueue = this.$room.find('.track-queue ul'); // REMOVE
 		this._lastUiStatus = {};
 	}
@@ -109,15 +109,15 @@ define([
 		}
 	};
 
-	Ui.prototype._formatTrackAsListItems = function (track) {
-		if (!track) {
-			return null;
-		}
-		var trackArtistListItem = '<li class="track-artist">' + track.artist + '</li>';
-		var trackTitleListItem = '<li class="track-title">' + track.title + '</li>';
-		var trackAlbumListItem = '<li class="track-album">' + track.album + '</li>';
-		return trackArtistListItem  + trackTitleListItem + trackAlbumListItem;
-	};
+//	Ui.prototype._formatTrackAsListItems = function (track) {
+//		if (!track) {
+//			return null;
+//		}
+//		var trackArtistListItem = '<li class="track-artist">' + track.artist + '</li>';
+//		var trackTitleListItem = '<li class="track-title">' + track.title + '</li>';
+//		var trackAlbumListItem = '<li class="track-album">' + track.album + '</li>';
+//		return trackArtistListItem  + trackTitleListItem + trackAlbumListItem;
+//	};
 
 	Ui.prototype._formatTrackDetailsShort = function (track) {
 		if (!track) {
@@ -141,15 +141,27 @@ define([
 //		}
 //	};
 
+	Ui.prototype._isDirty = function (fieldName, currentValue) {
+		currentValue = currentValue || null;
+		if (!_.isEqual(this._lastUiStatus[fieldName], currentValue)) {
+			this._lastUiStatus[fieldName] = _.cloneDeep(currentValue);
+			return true;
+		} else {
+			return false;
+		}
+	};
+
 	Ui.prototype._renderTrack = function (track, fieldName, $element) {
-		track = track || null;
+		this['_' + fieldName] = track;
 		var trackDetails = 'no track';
-		if (!_.isEqual(this._lastUiStatus[fieldName], track)) {
-			this._lastUiStatus[fieldName] = _.cloneDeep(track);
+		var trackImage = '/images/the-smiths.jpg';
+		if (this._isDirty(fieldName, track)) {
 			if (track) {
 				trackDetails = this._formatTrackDetailsShort(track);
+				trackImage = track.image;
 			}
-			$element.text(trackDetails);
+			$element.find('.track-title').text(trackDetails);
+			$element.find('.track-packshot').attr('src', trackImage);
 			console.log('UI | render', fieldName);
 		}
 	};
@@ -160,12 +172,12 @@ define([
 		if (trackHistory && trackHistory.length) {
 			previousTrack = trackHistory[0];
 		}
-		this._renderTrack(previousTrack, 'previousTrack', this.$previousTrackTitle);
+		this._renderTrack(previousTrack, 'previousTrack', this.$previousTrack);
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
 		var currentTrack = this.playlist.getCurrentTrack();
-		this._renderTrack(currentTrack, 'currentTrack', this.$currentTrackTitle);
+		this._renderTrack(currentTrack, 'currentTrack', this.$currentTrack);
 	};
 
 	Ui.prototype._renderNextTrack = function () {
@@ -174,7 +186,7 @@ define([
 		if (trackQueue && trackQueue.length) {
 			nextTrack = trackQueue[0];
 		}
-		this._renderTrack(nextTrack, 'nextTrack', this.$nextTrackTitle);
+		this._renderTrack(nextTrack, 'nextTrack', this.$nextTrack);
 	};
 
 //	Ui.prototype._renderTrackQueue = function () {

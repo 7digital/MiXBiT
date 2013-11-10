@@ -26,7 +26,8 @@ define([
 			title: externalTrack.trackName || 'NO TITLE',
 			album: externalTrack.releaseName || 'NO ALBUM',
 			url: externalTrack.url || 'NO URL',
-			position: 0.9
+			image: externalTrack.image || 'NO IMAGE',
+			position: 0.95
 		};
 	};
 
