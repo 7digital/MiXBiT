@@ -13,13 +13,20 @@ define([
 			console.log('Room | init');
 			var self = this;
 			this.ui = new Ui();
-			this.playlist = new Playlist();
-			this.player = new Player(
-				function stateChanged() {
-					console.log('Main | player state changed');
+			this.playlist = new Playlist(
+				function playlistChanged() {
+					console.log('Main | playlist changed');
 					self.ui.update();
+				}
+			);
+			this.ui.setPlaylist(self.playlist);
+			this.player = new Player(
+				function stateChanged(playerState) {
+					console.log('Main | player state changed');
+					self.ui.updatePlayer(playerState);
 				}, this.ui.$room
 			);
+			self.player.setPlaylist(self.playlist);
 			this.io = new Io(
 				function onConnect() {
 					console.log('Main | io connected');
@@ -28,13 +35,11 @@ define([
 				function onRoomState(roomState) {
 					console.log('Main | io room state');
 					self.playlist.loadFromRoomState(roomState);
-					self.player.setPlaylist(self.playlist);
-					self.player.play();
 					self.ui.setRoomState(roomState);
-					self.ui.setPlaylist(self.playlist);
-					self.ui.update();
+					self.player.play();
 				},
 				function onRoomError(roomError) {
+					console.log('Main | io room error');
 					document.location.href = '/';
 				}
 			);

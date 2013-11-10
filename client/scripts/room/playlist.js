@@ -3,8 +3,9 @@ define([
 ], function (_) {
 	'use strict';
 
-	function Playlist() {
+	function Playlist(playlistChangedCallback) {
 		console.log('Playlist | init');
+		this._playlistChangedCallback = playlistChangedCallback;
 	}
 
 	Playlist.prototype.loadFromRoomState = function (roomState) {
@@ -18,6 +19,7 @@ define([
 		if (this._currentTrack) {
 			this._currentTrack.position = 0.9;
 		}
+		this._playlistChangedCallback();
 	};
 
 	Playlist.prototype._convert = function (externalTrack) {
@@ -39,11 +41,13 @@ define([
 		}
 		if (!this._trackQueue.length){
 			this._currentTrack = null;
+			this._playlistChangedCallback();
 			return false;
 		}
 		this._currentTrack = this._trackQueue[0];
 		this._currentTrack.position = 0.9;
 		this._trackQueue.splice(0, 1);
+		this._playlistChangedCallback();
 		return true;
 	};
 

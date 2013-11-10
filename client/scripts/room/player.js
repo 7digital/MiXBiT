@@ -6,7 +6,7 @@ define([
 
 	function Player(stateChangedCallback, $room) {
 		console.log('Player | init');
-		this.stateChangedCallback = stateChangedCallback;
+		this._stateChangedCallback = stateChangedCallback;
 		this.$room = $room;
 		this._playlist = null;
 		this._currentTrack = null;
@@ -19,6 +19,7 @@ define([
 
 	Player.prototype.play = function () {
 		console.log('Player | play');
+		this._raiseStateChanged();
 		this._resetAudio();
 		this._currentTrack = this._playlist.getCurrentTrack();
 		if (!this._currentTrack) {
@@ -26,6 +27,10 @@ define([
 		}
 		this.audioJsPlayer.load(this._currentTrack.url);
 		this._seekTo(this._currentTrack.position);
+	};
+
+	Player.prototype.getStatus = function () {
+		return this.audioJsPlayer.state;
 	};
 
 	Player.prototype._resetAudio = function () {
@@ -73,7 +78,7 @@ define([
 				clearInterval(self.playIntervalId);
 				self.audioJsPlayer.play();
 				self.audioJsPlayer.skipTo(position);
-				self.stateChangedCallback();
+				self._raiseStateChanged();
 			} else {
 				var elapsed = now - lastPartialSeek;
 				if (elapsed > 300) {
@@ -91,9 +96,15 @@ define([
 		if (this._playlist.next()) {
 			this.play();
 		} else {
-			this.stateChangedCallback();
+			this._raiseStateChanged();
 		}
 	};
+
+	Player.prototype._raiseStateChanged = function () {
+		this._stateChangedCallback({
+			status : 'STATUS'
+		});
+	}
 
 	return Player;
 

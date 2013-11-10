@@ -14,6 +14,7 @@ define([
 		this.$roomGenre = this.$room.find('.room-genre');
 		this.$trackHistory = this.$room.find('.track-history ul');
 		this.$previousTrackList = this.$room.find('.previous-track ul');
+		this.$playerState = this.$room.find('.current-track .player-state');
 		this.$currentTrackList = this.$room.find('.current-track ul');
 		this.$currentTrackPosition = this.$room.find('.current-track .track-position');
 		this.$nextTrackList = this.$room.find('.next-track ul');
@@ -132,6 +133,15 @@ define([
 		_.forEach(trackQueue.slice(1), function (track) {
 			self.$trackQueue.append('<li>' + self._formatTrackAsListItem(track) + '</li>');
 		});
+	};
+
+	Ui.prototype.updatePlayer = function (playerState) {
+		this.playerState = playerState;
+		this._renderPlayerState();
+	};
+
+	Ui.prototype._renderPlayerState = function () {
+		this.$playerState.text(this.playerState.status);
 	};
 
 	return Ui;
