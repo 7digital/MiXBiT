@@ -687,27 +687,37 @@ section.room.is-loading .player {
   right: 10px;
   top: 30px;
   opacity: 0.3;
+  display: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000310}}
 .debug:hover {
   opacity: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000315}}
 .debug span,
 .debug a {
   line-height: 1.3em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000319}}
 .debug .player-skip {
   color: white;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000323}}
 .debug .debug-player-container {
   display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000327}}
+#debug {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_debug\.scss}line{font-family:\0000330}}
+#debug:target {
+  display: block;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/core\.scss}line{font-family:\0000323}}

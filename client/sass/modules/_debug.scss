@@ -4,6 +4,7 @@
     right: 10px;
     top: 30px;
     opacity: 0.3;
+    display: none;
 }
 
 .debug:hover {
@@ -21,4 +22,12 @@
 
 .debug .debug-player-container {
     display: none;
+}
+
+#debug {
+    display: none;
+
+    &:target {
+        display: block;
+    }
 }
