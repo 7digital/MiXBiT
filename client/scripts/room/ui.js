@@ -93,12 +93,20 @@ define([
 	};
 
 	Ui.prototype._renderRoomInfo = function () {
-		if (this._infoNeedsUpdating) {
-			console.log('UI | render room info');
+		var updated = false;
+		if (this._lastUiStatus.roomTitle !== this._roomTitle) {
 			this.$roomTitle.text(this._roomTitle || 'NO ROOM TITLE');
-			this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
+			this._lastUiStatus.roomTitle = this._roomTitle;
+			updated = true;
 		}
-		this._infoNeedsUpdating = false;
+		if (this._lastUiStatus.roomGenre !== this._roomGenre) {
+			this.$roomGenre.text(this._roomGenre || 'NO ROOM GENRE');
+			this._lastUiStatus.roomGenre = this._roomGenre;
+			updated = true;
+		}
+		if (updated) {
+			console.log('UI | render room info');
+		}
 	};
 
 	Ui.prototype._formatTrackAsListItems = function (track) {
