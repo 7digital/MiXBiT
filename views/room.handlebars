@@ -1,4 +1,8 @@
 <style>
+  	.room,
+	.room-loading {
+		margin-top: 3em;
+	}
 	.room.loading {
 		display: none;
 	}
@@ -17,7 +21,31 @@
 		clear: both;
 	}
 
+	h1,
+	h2,
+	h3 {
+		text-align: center;
+	}
+
+	h1 a {
+		color: #fff;
+		text-decoration: none;
+	}
+
+	h1 {
+		font-size: 2em;
+	}
+
+	h2 {
+		font-size: 1em;
+	}
+
+	h3 {
+		font-family: 0.75em;
+	}
+
 	.three-columns {
+		margin-top: 1em;
 	}
 
 	.three-columns .left,
@@ -71,8 +99,8 @@
 		</div>
 
 		<div class="current-track middle">
-			<p class="player-status">UNKNOWN PLAYER STATUS</p>
 			<ul><li>UNKNOWN CURRENT TRACK</li></ul>
+			<p class="player-status">UNKNOWN PLAYER STATUS</p>
 			<p>Position: <span class="track-position">UNKNOWN POSITION</span></p>
 		</div>
 

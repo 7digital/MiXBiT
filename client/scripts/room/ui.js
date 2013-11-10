@@ -67,9 +67,9 @@ define([
 		if (!track) {
 			return null;
 		}
-		var trackArtistListItem = '<li class="track-artist">Artitst: ' + track.artist + '</li>';
-		var trackTitleListItem = '<li class="track-title">Track: ' + track.title + '</li>';
-		var trackAlbumListItem = '<li class="track-album">Album: ' + track.album + '</li>';
+		var trackArtistListItem = '<li class="track-artist">' + track.artist + '</li>';
+		var trackTitleListItem = '<li class="track-title">' + track.title + '</li>';
+		var trackAlbumListItem = '<li class="track-album">' + track.album + '</li>';
 		return trackArtistListItem  + trackTitleListItem + trackAlbumListItem;
 	};
 
