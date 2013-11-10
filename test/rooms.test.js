@@ -1,5 +1,5 @@
-var robot = require('../lib/robot-dj');
+var trackChooser = require('../lib/track-chooser');
 
-robot.getTracks('techno', function (err, tracks) {
+trackChooser.getTracks('techno', function (err, tracks) {
 	console.log(err || tracks);
 });
