@@ -4,19 +4,17 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #000;
-    margin: 100px 10%;
-    border-radius: 8px;
-    padding: 20px;
-    border: 1px solid #454545;
+    background-color: rgba(0, 0, 0, 0.3);
     opacity: 0;
     z-index: -1;
      @include transition(opacity 0.2s linear);
 
     & > * {
-        max-width: 400px;
-        width: 60%;
-        margin: 100px auto 0;
+        background: transparent url("/images/modal-bg.png") no-repeat 50%;
+        width: 400px;
+        margin: 0 auto;
+        height: 490px;
+        padding: 280px 0 0;
     }
 
     &.is-visible,
@@ -28,7 +26,7 @@
     input[type="submit"] {
         color: #000;
         border-radius: 4px;
-        margin: 0 10px;
+        margin: 0 10px 0 100px;
     }
 
     .cancel {
@@ -56,6 +54,8 @@
     }
 
     input {
-        padding: 4px 1px;
+        font-family: 'Raleway', sans-serif;
+        text-indent: 10px;
+        padding: 6px 1px 5px;
     }
 }
