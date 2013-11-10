@@ -55,7 +55,7 @@ define([
 		this._renderRoomInfo(); // dirty checking
 		this._renderTrackHistory(); // dirty checking
 		this._renderPreviousTrack(); // dirty checking
-		this._renderCurrentTrack();
+		this._renderCurrentTrack(); // dirty checking
 		this._renderNextTrack();
 		this._renderTrackQueue();
 		this._renderPlayer();
@@ -160,17 +160,20 @@ define([
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
-		console.log('UI | render current track');
 		var trackDetails = '<li>no track to play</li>';
 		var trackPosition = 0;
-		var track = this.playlist.getCurrentTrack();
-		if (track) {
-			trackDetails = this._formatTrackAsListItems(track);
-			trackPosition = (track.position * 100) + '%';
+		var currentTrack = this.playlist.getCurrentTrack();
+		if (!_.isEqual(this._lastUiStatus.currentTrack, currentTrack)) {
+			this._lastUiStatus.currentTrack = currentTrack;
+			if (currentTrack) {
+				trackDetails = this._formatTrackAsListItems(currentTrack);
+				trackPosition = (currentTrack.position * 100) + '%';
+			}
+			this.$currentTrackList.empty();
+			this.$currentTrackList.append(trackDetails);
+			this.$currentTrackPosition.text(trackPosition);
+			console.log('UI | render current track');
 		}
-		this.$currentTrackList.empty();
-		this.$currentTrackList.append(trackDetails);
-		this.$currentTrackPosition.text(trackPosition);
 	};
 
 	Ui.prototype._renderNextTrack = function () {
