@@ -143,7 +143,7 @@ define([
 	Ui.prototype._renderTrack = function (track, fieldName, $element) {
 		this['_' + fieldName] = track;
 		var trackDetails = 'no track';
-		var trackImage = '/images/the-smiths.jpg';
+		var trackImage = '/images/packshot-placeholder.png';
 		if (this._isDirty(fieldName, track)) {
 			if (track) {
 				trackDetails = this._formatTrackDetailsShort(track);
