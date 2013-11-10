@@ -1,0 +1,31 @@
+.video {
+    opacity: 1;
+    z-index: 1;
+
+    & > * {
+        text-align: center;
+    }
+}
+
+
+#video {
+    display: none;
+
+    iframe {
+        height: 225px;
+        width: 100%;
+        margin-top: -16px;
+        border-top: 11px solid #000;
+        border-bottom: 10px solid #000;
+    }
+
+    &:target {
+        display: block;
+    }
+
+    .video-continue {
+        margin-top: 7px;
+        display: block;
+        margin-right: 2px;
+    }
+}

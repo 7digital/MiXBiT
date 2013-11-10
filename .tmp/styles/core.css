@@ -720,7 +720,83 @@ section.room.is-loading .player {
   display: block;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/core\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_introduction\.scss}line{font-family:\000031}}
+.introduction {
+  opacity: 1;
+  z-index: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_introduction\.scss}line{font-family:\000035}}
+.introduction > * {
+  font-size: 12px;
+  font-weight: 100;
+  color: #D1D3D4;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_introduction\.scss}line{font-family:\0000313}}
+#story {
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_introduction\.scss}line{font-family:\0000316}}
+#story .story-content {
+  padding: 0 20px;
+  margin-top: -18px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_introduction\.scss}line{font-family:\0000320}}
+#story .story-content h4, #story .story-content p {
+  margin: 10px 0;
+  line-height: 1.4;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_introduction\.scss}line{font-family:\0000325}}
+#story .story-content h4 {
+  font-size: 14px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_introduction\.scss}line{font-family:\0000334}}
+#story .intro-hex {
+  position: absolute;
+  top: -110px;
+  left: 160px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_introduction\.scss}line{font-family:\0000340}}
+#story .intro-continue {
+  position: absolute;
+  bottom: -100px;
+  left: 160px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_video\.scss}line{font-family:\000031}}
+.video {
+  opacity: 1;
+  z-index: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_video\.scss}line{font-family:\000035}}
+.video > * {
+  text-align: center;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_video\.scss}line{font-family:\0000311}}
+#video {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_video\.scss}line{font-family:\0000314}}
+#video iframe {
+  height: 225px;
+  width: 100%;
+  margin-top: -16px;
+  border-top: 11px solid #000;
+  border-bottom: 10px solid #000;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_video\.scss}line{font-family:\0000322}}
+#video:target {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/modules\/_video\.scss}line{font-family:\0000326}}
+#video .video-continue {
+  margin-top: 7px;
+  display: block;
+  margin-right: 2px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danny\/Sites\/seven-digital\/client\/sass\/core\.scss}line{font-family:\0000325}}
 .nko-social {
   position: absolute;
   top: 10px;
