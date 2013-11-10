@@ -35,7 +35,7 @@ define([
 					self.ui.update();
 				},
 				function onRoomError(roomError) {
-					document.location.href('/');
+					document.location.href = '/';
 				}
 			);
 		}
