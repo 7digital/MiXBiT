@@ -1,0 +1,52 @@
+.player {
+	padding: 10px 0;
+	width: 640px;
+	display: block;
+	height: 430px;
+	margin: 0 auto;
+}
+
+.player-track-previous,
+.player-track-next {
+	width: 150px;
+}
+
+.player-track-current {
+	position: relative;
+	background: transparent url("/images/packshot-bg.png") no-repeat 34px -5px;
+	padding: 12px;
+	background-size: 247px;
+	width: 292px;
+	margin-top: 0;
+
+	.track-artwork {
+		width: 250px;
+		height: 250px;
+	}
+
+	.track-packshot {
+		clip: rect(0, 237px, 254px, 13px);
+	}
+
+	.track-meta {
+		position: absolute;
+		left: -30px;
+		right: -30px;
+		bottom: -80px;
+	}
+
+	.track-title {
+		font-size: 24px;
+	}
+}
+
+.player-title {
+	font-weight: 100;
+	font-size: 24px;
+}
+
+.player-title {
+	font-weight: 100;
+	font-size: 24px;
+	margin-bottom: 10px;
+}

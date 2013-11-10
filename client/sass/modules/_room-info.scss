@@ -1,0 +1,29 @@
+.room-info {
+    margin: 24px 0 0;
+}
+
+.room-info-title {
+    font-size: 22px;
+    font-weight: 100;
+    letter-spacing: 0.0525em;
+    margin: 0 0 8px 0;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.room-info-genre {
+    font-size: 14px;
+    margin: 0 0 8px 0;
+}
+
+.room-info-listeners {
+    font-size: 12px;
+    font-weight: 100;
+
+    strong {
+        font-size: 14px;
+    }
+}

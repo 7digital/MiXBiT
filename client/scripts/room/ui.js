@@ -10,7 +10,7 @@ define([
 		this.$roomLoading = $('.room-loading');
 		this.$roomLoadingStatus = this.$roomLoading.find('.status');
 		this.$roomTitle = this.$room.find('.room-title a');
-		this.$roomGenre = this.$room.find('.room-genre');
+		this.$roomGenre = this.$room.find('.room-info-genre');
 		this.$trackHistory = this.$room.find('.track-history ul');
 		this.$previousTrackList = this.$room.find('.previous-track ul');
 		this.$playerStatus = this.$room.find('.player-status');
@@ -82,8 +82,8 @@ define([
 		if (isConnected && hasSynced) {
 			if (!this._lastUiStatus.isLoaded) {
 				this._lastUiStatus.isLoaded = true;
-				this.$room.removeClass('loading');
-				this.$roomLoading.addClass('hidden');
+				this.$room.removeClass('is-loading');
+				this.$roomLoading.addClass('is-hidden');
 				updated = true;
 			}
 		}

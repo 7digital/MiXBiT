@@ -1,0 +1,70 @@
+.track {
+    float: left;
+    margin-top: 40px;
+}
+
+.track-artwork {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    overflow: hidden;
+    @include transform(scale(1.25,.707) rotate(-45deg));
+    @include backface-visibility(hidden);
+}
+
+.track-packshot {
+    position: absolute;
+    margin: 0 auto;
+    clip: rect(0, 138px, 200px, 13px);
+    @include transform(rotate(45deg) scale(.8, 1.404));
+    // @include background-clip(rect(0,187px,200px,13px));
+}
+
+.player-track-previous,
+.player-track-next {
+    width: 150px;
+}
+
+.player-track-current {
+    position: relative;
+    background: transparent url("/images/packshot-bg.png") no-repeat 34px -5px;
+    padding: 12px;
+    background-size: 247px;
+    width: 292px;
+    margin-top: 0;
+
+    .track-artwork {
+        width: 250px;
+        height: 250px;
+    }
+
+    .track-packshot {
+        clip: rect(0, 237px, 254px, 13px);
+    }
+
+    .track-meta {
+        position: absolute;
+        left: -30px;
+        right: -30px;
+        bottom: -80px;
+    }
+
+    .track-title {
+        font-size: 24px;
+    }
+}
+
+.track-meta {
+    text-align: center;
+    padding: 16px 0;
+
+    & > * {
+        display: block;
+    }
+}
+
+.track-title {
+    font-weight: 100;
+    font-size: 14px;
+}

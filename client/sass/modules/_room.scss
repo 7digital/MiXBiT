@@ -1,0 +1,13 @@
+.room {
+
+	&.is-loading {
+		display: none;
+	}
+}
+
+.room-loading {
+
+	&.is-hidden {
+		display: none;
+	}
+}

@@ -1,90 +1,50 @@
-<style>
-  	.room,
-	.room-loading {
-		margin-top: 3em;
-	}
-	.room.loading {
-		display: none;
-	}
+<section class="room is-loading">
 
-	.room-loading.hidden {
-		display: none;
-	}
+	<header class="room-info">
+		<h2 class="room-info-title">
+			<a href="/room/{{ id }}">UNKNOWN ROOM TITLE</a>
+		</h2>
+		<h3 class="room-info-genre">UNKNOWN ROOM GENRE</h3>
+		<h4 class="room-info-listeners">Listeners: <strong>10</strong></h4>
+	</header>
 
-	.cf:before,
-	.cf:after {
-		content: " "; /* 1 */
-		display: table; /* 2 */
-	}
+	<div class="player">
 
-	.cf:after {
-		clear: both;
-	}
+		<div class="track player-track-previous">
+			<div class="track-artwork">
+				<img width="150" class="track-packshot" src="/images/the-smiths.jpg" alt="">
+			</div>
+			<div class="track-meta">
+				<span class="player-title">PREV TRACK</span>
+				<span class="track-title">UNKNOWN PREVIOUS TRACK</span>
+			</div>
+		</div>
 
-	h1,
-	h2,
-	h3 {
-		text-align: center;
-	}
+		<div class="track player-track-current">
+			<div class="track-artwork">
+				<img width="250" class="track-packshot" src="/images/the-smiths.jpg" alt="">
+			</div>
+			<div class="track-meta">
+				<span class="track-title">UNKNOWN CURRENT TRACK</span>
+			</div>
+		</div>
 
-	h1 a {
-		color: #fff;
-		text-decoration: none;
-	}
+		<div class="track player-track-next">
+			<div class="track-artwork">
+				<img width="150" class="track-packshot" src="/images/the-smiths.jpg" alt="">
+			</div>
+			<div class="track-meta">
+				<span class="player-title">NEXT TRACK</span>
+				<span class="track-title">UNKNOWN NEXT TRACK</span>
+			</div>
+		</div>
 
-	h1 {
-		font-size: 2em;
-	}
+	</div>
 
-	h2 {
-		font-size: 1em;
-	}
+</section>
 
-	h3 {
-		font-family: 0.75em;
-	}
 
-	.three-columns {
-		margin-top: 1em;
-	}
-
-	.three-columns .left,
-	.three-columns .middle,
-	.three-columns .right {
-		width: 33%;
-		float: left;
-	}
-
-	.three-columns .left {
-		text-align: left;
-	}
-
-	.three-columns .middle {
-		text-align: center;
-	}
-
-	.three-columns .right {
-		text-align: right;
-	}
-
-	.two-columns {
-	}
-
-	.two-columns .left,
-	.two-columns .right {
-		width: 50%;
-		float: left;
-	}
-
-	.two-columns .left {
-		text-align: left;
-	}
-
-	.two-columns .right {
-		text-align: right;
-	}
-
-</style>
+<!--
 
 <section class="room loading">
 	<h1 class="room-title"><a href="/room/{{ id }}">UNKNOWN ROOM TITLE</a></h1>
@@ -125,7 +85,7 @@
 
 	</div>
 
-</section>
+</section> -->
 
 <section class="room-loading">
 	<span class="status">UNKNOWN STATUS</span>
