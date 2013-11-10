@@ -56,7 +56,7 @@ define([
 		this._renderTrackHistory(); // dirty checking
 		this._renderPreviousTrack(); // dirty checking
 		this._renderCurrentTrack(); // dirty checking
-		this._renderNextTrack();
+		this._renderNextTrack(); // dirty checking
 		this._renderTrackQueue();
 		this._renderPlayer();
 	};
@@ -164,7 +164,7 @@ define([
 		var trackPosition = 0;
 		var currentTrack = this.playlist.getCurrentTrack();
 		if (!_.isEqual(this._lastUiStatus.currentTrack, currentTrack)) {
-			this._lastUiStatus.currentTrack = currentTrack;
+			this._lastUiStatus.currentTrack = _.cloneDeep(currentTrack);
 			if (currentTrack) {
 				trackDetails = this._formatTrackAsListItems(currentTrack);
 				trackPosition = (currentTrack.position * 100) + '%';
@@ -177,14 +177,22 @@ define([
 	};
 
 	Ui.prototype._renderNextTrack = function () {
-		console.log('UI | render next track');
+
+		var nextTrack = null;
 		var trackQueue = this.playlist.getTrackQueue();
 		var trackDetails = '<li>no next track</li>';
 		if (trackQueue && trackQueue.length) {
-			trackDetails = this._formatTrackAsListItems(trackQueue[0]);
+			nextTrack = trackQueue[0];
 		}
-		this.$nextTrackList.empty();
-		this.$nextTrackList.append(trackDetails);
+		if (!_.isEqual(this._lastUiStatus.nextTrack, nextTrack)) {
+			this._lastUiStatus.nextTrack = _.cloneDeep(nextTrack);
+			if (nextTrack) {
+				trackDetails = this._formatTrackAsListItems(nextTrack);
+			}
+			this.$nextTrackList.empty();
+			this.$nextTrackList.append(trackDetails);
+			console.log('UI | render next track');
+		}
 	};
 
 	Ui.prototype._renderTrackQueue = function () {
