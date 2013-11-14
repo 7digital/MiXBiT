@@ -9,7 +9,7 @@ if (process.argv.length <= 2) {
 }
 
 function die(msg) {
-	console.err(msg);
+	console.error(msg);
 	process.exit(1);
 }
 
@@ -53,5 +53,6 @@ function monitorOne() {
 function initRooms() {
 	rooms.init(function initComplete(err) {
 		console.log('Initialised some rooms');
+		process.exit(0);
 	});
 }
