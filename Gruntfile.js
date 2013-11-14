@@ -115,7 +115,7 @@ module.exports = function configureGrunt(grunt) {
 		usemin: {
 			options: {
 				dirs: ['dist/client'],
-				basedir: 'dist/client',
+				basedir: 'dist/client'
 			},
 			html: ['dist/client/{,*/}*.html', 'dist/views/**/*.handlebars'],
 			css: ['dist/client/styles/{,*/}*.css']
@@ -182,14 +182,14 @@ module.exports = function configureGrunt(grunt) {
 						'*.{ico,png,txt}',
 						'.htaccess',
 						'images/**/*.{webp,gif}',
-						'styles/fonts/{,*/}*.*',
+						'styles/fonts/{,*/}*.*'
 					]
 				}, {
 					expand: true,
 					dot: true,
 					cwd: 'views',
 					dest: 'dist/views/',
-					src: '**/*.handlebars',
+					src: '**/*.handlebars'
 				}]
 			},
 			styles: {
