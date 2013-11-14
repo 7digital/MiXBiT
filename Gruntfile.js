@@ -32,7 +32,7 @@ module.exports = function configureGrunt(grunt) {
 				files: ['client/sass/**/*.{scss,sass}'],
 				tasks: ['compass:server'],
 				options: {
-					livereload: true,
+					livereload: true
 				},
 			},
 		},
@@ -162,7 +162,8 @@ module.exports = function configureGrunt(grunt) {
 			dist: {
 				options: {
 					generatedImagesDir: 'dist/client/images',
-					environment: 'production'
+					environment: 'production',
+					outputStyle: 'compressed'
 				}
 			},
 			server: {
