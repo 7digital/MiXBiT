@@ -51,7 +51,7 @@ function monitorOne() {
 }
 
 function initRooms() {
-	rooms.init(function initComplete(err) {
+	rooms.init(false, function initComplete(err) {
 		console.log('Initialised some rooms');
 		process.exit(0);
 	});
