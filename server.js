@@ -1,6 +1,3 @@
-// https://github.com/nko4/website/blob/master/module/README.md#nodejs-knockout-deploy-check-ins
-require('nko')('UeIyoMvSlMEPTZ94');
-
 var isProduction, port,
 	express = require('express'),
 	rollbar = require('rollbar'),

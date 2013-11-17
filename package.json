@@ -23,7 +23,6 @@
     "oauth": "~0.9.10"
   },
   "devDependencies": {
-    "nko": "*",
     "grunt": "~0.4.1",
     "grunt-nodemon": "~0.1.1",
     "grunt-contrib-watch": "~0.5.3",
