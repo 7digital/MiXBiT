@@ -76,7 +76,9 @@ app.post('/room/create', routes.createRoom);
 // startup
 sock.listen(io);
 
-rooms.init(true, function () {
+listneners.resetListeners(function (err) {
+	if (err) throw err;
+
 	server.listen(port, function(err) {
 		if (err) { console.error(err); process.exit(-1); }
 

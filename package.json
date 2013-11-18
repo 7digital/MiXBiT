@@ -41,7 +41,8 @@
     "grunt-bower-requirejs": "~0.7.1",
     "grunt-contrib-requirejs": "~0.4.1",
     "grunt-rev": "~0.1.0",
-    "grunt-usemin": "~2.0.0"
+    "grunt-usemin": "~2.0.0",
+    "mocha": "~1.14.0"
   },
   "engines": {
     "node": "0.10.x"
