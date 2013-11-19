@@ -6,8 +6,8 @@ require.config({
 		handlebars: '../bower_components/handlebars/handlebars.runtime',
 		lodash: '../bower_components/lodash/dist/lodash.compat',
 		socketio: '../../socket.io/socket.io',
-		audiojs: '../bower_components/audiojs/audiojs/audio.min'
-		// howlerjs: '../bower_components/howler/howler'
+		audiojs: '../bower_components/audiojs/audiojs/audio.min',
+		nprogress: '../bower_components/nprogress/nprogress'
 	},
 	shim: {
 		'socketio': {
@@ -24,11 +24,10 @@ require.config({
 		audiojs: {
 			deps: [],
 			exports: 'audiojs'
+		},
+		nprogress: {
+			deps: [],
+			exports: 'NProgress'
 		}
-//		howlerjs: {
-//			deps: [],
-//			exports: 'Howl'
-//		}
-
 	}
 });
