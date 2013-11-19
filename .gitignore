@@ -10,7 +10,6 @@
 tags
 npm-debug.log
 /lib/compiled/
-docs
 .tern-port
 /.sass-cache/
 /.idea/
