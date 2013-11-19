@@ -1,7 +1,7 @@
 # MiXBiT
 MiXBiT is a Robot DJ powered Virtual club experience.
 
-## Pitch video:
+## Pitch video
 [![MiXBiT Pitch Video](http://b.vimeocdn.com/ts/454/632/454632441_640.jpg)](https:/player.vimeo.com/video/79046230)
 
 ## About
@@ -16,3 +16,7 @@ to hear... we cannot. We collected from David Guetta twice... Just to make sure.
 ## What?
 We created MiXBiT for the Node Knockout 48 hour hackaton.
 You can see more details at our team page: http://nodeknockout.com/teams/seven-digital
+
+## Screenshot
+[![MiXBiT Home Screenshot](/docs/mixbit-home.png)](http://nodeknockout.com/teams/seven-digital)
+[![MiXBiT Room Screenshot](/docs/mixbit-room.png)](http://nodeknockout.com/teams/seven-digital)
