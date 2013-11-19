@@ -18,16 +18,25 @@ define([
 	};
 
 	Playlist.prototype._convert = function (externalTrack) {
+		var position = 0,
+			positionOffset = 0,
+			duration = 0;
 		if (!externalTrack) {
 			return null;
+		}
+		duration = externalTrack.duration;
+		positionOffset = Math.floor((Date.now() - Date.parse(externalTrack.startTime)) / 1000);
+		position = ((positionOffset * 100) / duration) / 100;
+		if (position > 1) {
+			position = 1;
 		}
 		return {
 			artist: externalTrack.artistName || 'NO ARTIST',
 			title: externalTrack.trackName || 'NO TITLE',
 			album: externalTrack.releaseName || 'NO ALBUM',
 			url: externalTrack.url || 'NO URL',
-			image: externalTrack.image || 'NO IMAGE'
-			// position: 0.95
+			image: externalTrack.image || 'NO IMAGE',
+			position: position
 		};
 	};
 
