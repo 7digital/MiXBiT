@@ -12,6 +12,7 @@ var isProduction, port,
 	io = require('socket.io').listen(server),
 	hbjs = require('express3-handlebars'),
 	routes = require('./lib/routes'),
+	listeners = require('./lib/listeners'),
 	port = 3000,
 	url  = 'http://localhost:' + port + '/';
 
@@ -76,7 +77,7 @@ app.post('/room/create', routes.createRoom);
 // startup
 sock.listen(io);
 
-listneners.resetListeners(function (err) {
+listeners.resetListeners(function (err) {
 	if (err) throw err;
 
 	server.listen(port, function(err) {
