@@ -1,5 +1,5 @@
 # MiXBiT
-MiXBiT is a Robot powered Virtual club experience.
+MiXBiT is a Robot DJ powered Virtual club experience.
 
 ### Our pitch video:
 [![MiXBiT Pitch Video](http://b.vimeocdn.com/ts/454/632/454632441_640.jpg)](https:/player.vimeo.com/video/79046230)
