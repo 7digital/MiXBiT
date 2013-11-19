@@ -18,5 +18,5 @@ We created MiXBiT for the Node Knockout 48 hour hackaton.
 You can see more details at our team page: http://nodeknockout.com/teams/seven-digital
 
 ## Screenshot
-[![MiXBiT Home Screenshot](/docs/mixbit-home.png)](http://nodeknockout.com/teams/seven-digital)
-[![MiXBiT Room Screenshot](/docs/mixbit-room.png)](http://nodeknockout.com/teams/seven-digital)
+[![MiXBiT Home Screenshot](/docs/mixbit-home.png)](http://seven-digital.2013.nodeknockout.com)
+[![MiXBiT Room Screenshot](/docs/mixbit-room.png)](http://seven-digital.2013.nodeknockout.com)
