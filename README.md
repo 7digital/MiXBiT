@@ -15,6 +15,7 @@ to hear... we cannot. We collected from David Guetta twice... Just to make sure.
 
 ## What?
 We created MiXBiT for the Node Knockout 48 hour hackaton.
+
 You can see more details at our team page: http://nodeknockout.com/teams/seven-digital
 
 ## Screenshot
