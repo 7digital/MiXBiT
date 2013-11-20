@@ -26,7 +26,7 @@ require.config({
 			exports: 'audiojs'
 		},
 		nprogress: {
-			deps: [],
+			deps: [ 'jquery' ],
 			exports: 'NProgress'
 		}
 	}
