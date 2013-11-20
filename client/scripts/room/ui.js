@@ -1,6 +1,7 @@
 define([
 	'lodash',
-	'jquery'
+	'jquery',
+	'nprogress'
 ], function (_, $) {
 	'use strict';
 
@@ -24,6 +25,11 @@ define([
 		this.$skipCallback = this.$room.find('.debug .player-skip');
 		this.$skipCallback.click(skipCallBack);
 		this._lastUiStatus = {};
+		NProgress.configure({
+			trickleRate: 0.01,
+			minimum: 0,
+			showSpinner: true
+		});
 	}
 
 	Ui.prototype.setIo = function (io) {
@@ -169,8 +175,12 @@ define([
 	};
 
 	Ui.prototype._renderCurrentTrack = function () {
-		var currentTrack = this.playlist.getCurrentTrack();
+		var currentTrack = this.playlist.getCurrentTrack(),
+			currentTrackPosition = currentTrack ? currentTrack.position : 0;
 		this._renderTrack(currentTrack, 'currentTrack', this.$currentTrack);
+		if (this._isDirty('_currentTrackPosition', currentTrackPosition)) {
+			NProgress.set(currentTrackPosition);
+		}
 	};
 
 	Ui.prototype._renderNextTrack = function () {
@@ -198,27 +208,44 @@ define([
 //	};
 
 	Ui.prototype._renderPlayer = function () {
-		var playerState = this.player.getPlayerState();
+		var playerState = this.player.getPlayerState(),
+			isPlaying = false,
+			playerStatus = 'Loading...',
+			playerElapsed = 0,
+			playerDuration = 0;
 		if (this._isDirty('playerState', playerState)) {
-			var playerStatus = 'Loading...';
-			var playerElapsed = 0;
-			var playerDuration = 0;
 			if (playerState) {
+				isPlaying = playerState.isPlaying;
 				playerStatus = playerState.status;
 				playerElapsed = playerState.elapsed;
 				playerDuration = playerState.duration;
 			}
+			this._showOrHideSpinner(isPlaying);
 			this.$playerStatus.text(playerStatus);
 			this.$playerElapsed.text(this._toHHMMSS(playerElapsed));
 			this.$playerDuration.text(this._toHHMMSS(playerDuration));
-			// console.log('UI | render player status');
+			// console.log('UI | render player');
+		}
+	};
+
+	Ui.prototype._showOrHideSpinner = function (isPlaying) {
+		if (isPlaying != this._isPlaying) {
+			// Hack to show and hide the spinner, there is no way wit the NProgress API to dynamically change it
+			if (isPlaying) {
+				console.log('UI | render player | hiding spinner');
+				NProgress.render(null).find('[role="spinner"]').hide();
+			} else {
+				console.log('UI | render player | showing spinner');
+				NProgress.render(null).find('[role="spinner"]').show();
+			}
+			this._isPlaying = isPlaying;
 		}
 	};
 
 	Ui.prototype._toHHMMSS = function (value) {
 		var sec_num = parseInt(value, 10);
-		var hours   = Math.floor(sec_num / 3600);
-		var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+		var hours   = Math.round(sec_num / 3600);
+		var minutes = Math.round((sec_num - (hours * 3600)) / 60);
 		var seconds = sec_num - (hours * 3600) - (minutes * 60);
 		if (hours   < 10) {hours   = "0" + hours;}
 		if (minutes < 10) {minutes = "0" + minutes;}
